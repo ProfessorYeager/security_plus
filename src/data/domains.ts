@@ -15,7 +15,26 @@ export const domains: Domain[] = [
                         id: "cia-triad",
                         title: "CIA Triad",
                         summary: "Confidentiality, Integrity, and Availability are the three pillars of information security.",
-                        details: "The CIA Triad is a benchmark model designed to guide policies for information security within an organization. \n\n• **Confidentiality**: Keeping information private. Example: Encrypting a hard drive so only authorized users can read the data.\n• **Integrity**: Ensuring data is accurate and hasn't been tampered with. Example: Using hashing to verify a downloaded file hasn't been modified by an attacker.\n• **Availability**: Ensuring data and services are accessible when needed. Example: Implementing a Load Balancer to prevent a website from going down during a traffic spike.",
+                        details: `### Concept Breakdown
+The **CIA Triad** is the foundational model for information security. It represents the three main goals that every security control tries to achieve.
+
+*   **Confidentiality (C)**: Ensuring that data is only accessed by authorized personnel.
+*   **Integrity (I)**: Ensuring that data has not been tampered with or altered.
+*   **Availability (A)**: Ensuring that systems and data are accessible when needed.
+
+### Real-World Application
+*   **Confidentiality**: A hospital encrypts patient records so that hackers cannot read them if they steal the hard drive.
+*   **Integrity**: A software developer signs their code with a digital signature so users know the installer hasn't been infected with malware.
+*   **Availability**: Amazon uses a Content Delivery Network (CDN) to ensure their website loads fast and stays online even during Black Friday traffic spikes.
+
+### Non-Technical Analogy
+Think of your **bank account**:
+*   **Confidentiality**: Only *you* know your PIN. If everyone knew it, your money wouldn't be safe.
+*   **Integrity**: When you deposit $100, the balance goes up by exactly $100. If it went up by $10 or $1000 randomly, you couldn't trust the bank.
+*   **Availability**: You can withdraw cash from an ATM 24/7. If the ATM is always broken, the bank is useless to you.
+
+### 🛡️ Exam Tip
+If a question mentions "encryption" or "access controls," it's usually **Confidentiality**. If it mentions "hashing" or "digital signatures," it's **Integrity**. If it mentions "redundancy," "backups," or "RAID," it's **Availability**.`,
                         video: null,
                         quizQuestions: [
                             {
@@ -66,7 +85,23 @@ export const domains: Domain[] = [
                         id: "auth-vs-authz",
                         title: "Authentication vs. Authorization",
                         summary: "Authentication verifies identity, while Authorization determines access rights.",
-                        details: "These two concepts are often confused but serve distinct purposes in security.\n\n• **Authentication (AuthN)**: The process of verifying who you are. \n  *Real-world example*: Showing your ID at a secure facility entrance.\n• **Authorization (AuthZ)**: The process of verifying what you have access to.\n  *Real-world example*: Once inside the facility, your badge only allows you to enter the Server Room, not the CEO's office.\n\n**Key Exam Tip**: You must be authenticated BEFORE you can be authorized.",
+                        details: `### Concept Breakdown
+These two terms are often used interchangeably by laypeople, but they mean very different things in security.
+
+*   **Authentication (AuthN)**: The process of verifying *who you are*.
+*   **Authorization (AuthZ)**: The process of determining *what you are allowed to do*.
+
+### Real-World Application
+*   **Authentication**: Logging into your work computer with a smart card and PIN. The system checks its database to confirm "Yes, this is Alice."
+*   **Authorization**: Once Alice is logged in, the active directory settings determine that she can access the "Sales" folder but is blocked from the "HR" folder.
+
+### Non-Technical Analogy
+Think of **boarding a plane**:
+*   **Authentication**: The TSA agent checks your ID and boarding pass at the security checkpoint. They are verifying *who you are* and that you are allowed in the terminal.
+*   **Authorization**: Walking onto the plane and finding your seat. Your ticket *authorizes* you to sit significantly in Seat 12A (Economy). It does *not* authorize you to sit in Seat 1A (First Class) or fly the plane (Cockpit).
+
+### 🛡️ Exam Tip
+Start with **Authentication** (Who are you?), then move to **Authorization** (What can you do?). You cannot authorize someone until you know who they are.`,
                         video: {
                             title: "Authentication vs. Authorization in Security Plus Exam 🎟️",
                             url: "https://www.loom.com/share/02b1e68bd2224bb98c88fc1a8fa2354b"
@@ -120,7 +155,27 @@ export const domains: Domain[] = [
                         id: "aaa-framework",
                         title: "AAA Framework",
                         summary: "Authentication, Authorization, and Accounting provide a framework for controlling access.",
-                        details: "The AAA framework is the backbone of access control. It ensures that users are identified, granted the correct access, and their actions are recorded.\n\n• **Authentication**: Verifying identity (Something you know, have, are).\n• **Authorization**: Granting permissions (Read, Write, Execute).\n• **Accounting**: Logging and auditing (What did the user do, and when?).\n\n*Scenario*: In a corporate network, a RADIUS or TACACS+ server provides centralized AAA services to manage thousands of users and network devices.",
+                        details: `### Concept Breakdown
+The **AAA Framework** is the architectural model for managing network access control.
+
+1.  **Authentication**: Verifying the user's identity. ("Who are you?")
+2.  **Authorization**: Determining what the user can do. ("What are you allowed to access?")
+3.  **Accounting**: Tracking what the user did. ("What did you do, and when?")
+
+### Real-World Application
+*   **Scenario**: A remote employee connects to the corporate VPN.
+    *   **AuthN**: They enter their username/password and MFA code. The RADIUS server confirms their identity.
+    *   **AuthZ**: Based on their group membership (e.g., "Contractors"), the firewall assigns them a dynamic ACL that restricts them to only the Email server.
+    *   **Accounting**: The system logs: "User J.Smith connected at 09:00 AM, transferred 50MB of data, and disconnected at 05:00 PM."
+
+### Non-Technical Analogy
+Think of using a **Credit Card**:
+*   **Authentication**: Putting your card in the chip reader and entering your PIN. You are proving you own the account.
+*   **Authorization**: The bank computer checks if you have enough money (credit limit) to complete the purchase. Ideally, it *authorizes* or *declines* the transaction.
+*   **Accounting**: The transaction appears on your monthly statement. It logs the Date, Time, Merchant, and Amount.
+
+### 🛡️ Exam Tip
+Don't forget **Accounting**! Security isn't just about letting people in (AuthN/AuthZ); it's about being able to prove *who* did *what* later (Non-repudiation and Auditing).`,
                         video: null,
                         quizQuestions: [
                             {
@@ -178,7 +233,21 @@ export const domains: Domain[] = [
                         id: "least-privilege",
                         title: "Principle of Least Privilege",
                         summary: "Users should only be granted the minimum level of access necessary to perform their job functions.",
-                        details: "The Principle of Least Privilege (PoLP) is a core security pillar that limits access rights for users, accounts, and computing processes to only those needed to do their jobs.\n\n• **Benefit**: Limits the 'blast radius' if an account is compromised.\n• **Implementation**: Use Role-Based Access Control (RBAC) and conduct regular access reviews.\n\n*Real-world example*: A marketing intern should have access to the social media dashboard, but not the company's payroll system.",
+                        details: `### Concept Breakdown
+The **Principle of Least Privilege (PoLP)** states that users and systems should have *only* the minimum level of access necessary to perform their job functions—and no more.
+
+### Real-World Application
+*   **System Administration**: A web server process (like Apache or Nginx) should run as a low-privilege 'www-data' user, NOT as 'root'. If the web server is hacked, the attacker is trapped in that low-level account.
+*   **Employee Access**: A new Sales Associate should only have access to the CRM software. They should *not* have access to the Finance Department's payroll folders.
+
+### Non-Technical Analogy
+Think of a **Valet Key** for a fancy car:
+*   The valet key allows the parking attendant to unlock the door and start the engine to park the car.
+*   It does **not** allow them to open the glovebox, trunk, or drive above 25 MPH.
+*   They have the *least privilege* needed to park the car, but not enough to steal your valuables or joyride.
+
+### 🛡️ Exam Tip
+Least Privilege is a preventative control. It doesn't stop an attack from happening, but it drastically limits the "blast radius" (the damage) if an account is compromised.`,
                         video: {
                             title: "Least Privilege (Why Security+ Won’t Shut Up About It)",
                             url: "https://www.loom.com/share/1e2bbd28fd574708853934f0824e83e0"
@@ -232,7 +301,28 @@ export const domains: Domain[] = [
                         id: "mfa",
                         title: "Multi-Factor Authentication (MFA)",
                         summary: "Requires more than one method of authentication from independent categories.",
-                        details: "MFA requires users to present two or more pieces of evidence from different categories:\n\n1. **Something you know**: Password, PIN, Security Question.\n2. **Something you have**: Smart card, hardware token, phone (SMS/App).\n3. **Something you are**: Fingerprint, Retina scan, Facial recognition.\n4. **Somewhere you are**: Geolocation/IP gating.\n5. **Something you do**: Typing cadence, gait analysis.\n\n*Critical Note*: Using two passwords is NOT MFA (it's 'Two-Step' but both are in the 'Something you know' category).",
+                        details: `### Concept Breakdown
+MFA requires a user to present two or more *different types* of credentials to verify their identity. It is exponentially more secure than a password alone.
+
+### The Categories (Factors)
+1.  **Something you Know**: Password, PIN, Mother's maiden name.
+2.  **Something you Have**: Smart card, USB token, Smartphone (Authenticator App).
+3.  **Something you Are**: Fingerprint, Retina scan, Face ID (Biometrics).
+4.  **Somewhere you Are**: GPS location, IP address subnet.
+5.  **Something you Do**: Typing cadence, gait analysis (Behavioral).
+
+### Real-World Application
+*   **Logging into your Bank**: You type your Password (Know) and then receive a 6-digit code via SMS on your Phone (Have).
+*   **Secure Facility Access**: You swipe your Badge (Have) and then scan your Fingerprint (Are).
+
+### Non-Technical Analogy
+Think of a **medieval castle gate**:
+*   To enter, you must know the **Passcode** (Something you know).
+*   BUT, the guard also demands to see the **King's Signet Ring** (Something you have).
+*   If you stole the password but don't have the ring, the gate stays closed.
+
+### 🛡️ Exam Tip
+**Two passwords are NOT MFA.** If a system asks for a Password and a PIN, that is "Two-Step Authentication" but NOT Multi-Factor, because both are "Something you Know."`,
                         video: {
                             title: "Understanding Multi-Factor Authentication for the Security Plus Exam🔐",
                             url: "https://www.loom.com/share/461041344c62411c9412fd4d4802d9e6"
@@ -286,7 +376,22 @@ export const domains: Domain[] = [
                         id: "sso",
                         title: "Single Sign-On (SSO)",
                         summary: "Allows a user to log in once and access multiple independent systems.",
-                        details: "SSO improves user experience by reducing 'password fatigue' while allowing centralizing management.\n\n• **Mechanism**: Uses a central authentication server (Identity Provider or IdP) and tokens (SAML, OIDC).\n• **Risk**: If the SSO credentials are stolen, the attacker has access to ALL connected systems.",
+                        details: `### Concept Breakdown
+SSO allows a user to authenticate once and gain access to multiple applications without having to log in again for each one.
+
+*   **Technologies**: SAML, OIDC, Kerberos.
+*   **Benefits**: Better user experience (fewer passwords to remember), fewer helpdesk calls for password resets.
+
+### Real-World Application
+*   **Google Workspace**: You log in to Gmail once. Then, when you open Drive, Calendar, and YouTube, you are already logged in. You don't type your password 4 times.
+
+### Non-Technical Analogy
+Think of a **Theme Park Wristband (Disney MagicBand)**:
+*   You confirm your ID *once* at the resort entrance and get a wristband.
+*   For the rest of the day, you rely on that wristband to enter the park, open your hotel room, and buy lunch. You don't show your ID card at every single ride.
+
+### 🛡️ Exam Tip
+**The Catch**: SSO is convenient but creates a **Single Point of Failure**. If an attacker steals your SSO credentials (your wristband), they have access to *everything* linked to that account.`,
                         video: {
                             title: "Single Sign-On (SSO) — Convenience with a Price",
                             url: "https://www.loom.com/share/585f5f2be0e04addb37a2d30d178d88d"

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import Markdown from 'react-markdown';
 import { clsx } from 'clsx';
 import { domains } from '../data';
 import { Concept } from '../types';
@@ -166,8 +167,19 @@ export const Study = () => {
                                         {selectedConcept.details && (
                                             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                                                 <p className="text-cyber-blue font-mono text-xs uppercase tracking-widest mb-4 font-bold">Deep Dive Analysis</p>
-                                                <div className="text-gray-300 whitespace-pre-wrap leading-relaxed">
-                                                    {selectedConcept.details}
+                                                <div className="text-gray-300 leading-relaxed">
+                                                    <Markdown
+                                                        components={{
+                                                            h3: ({ node, ...props }) => <h3 className="text-lg font-bold text-white mt-6 mb-2" {...props} />,
+                                                            h4: ({ node, ...props }) => <h4 className="text-base font-bold text-cyber-green mt-4 mb-1" {...props} />,
+                                                            ul: ({ node, ...props }) => <ul className="list-disc pl-5 space-y-2 my-2" {...props} />,
+                                                            li: ({ node, ...props }) => <li className="pl-1" {...props} />,
+                                                            strong: ({ node, ...props }) => <strong className="text-white font-bold" {...props} />,
+                                                            p: ({ node, ...props }) => <p className="mb-4 last:mb-0" {...props} />,
+                                                        }}
+                                                    >
+                                                        {selectedConcept.details}
+                                                    </Markdown>
                                                 </div>
                                             </div>
                                         )}
