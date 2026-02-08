@@ -435,7 +435,23 @@ Think of a **Theme Park Wristband (Disney MagicBand)**:
                         id: "hashing-vs-encryption",
                         title: "Hashing vs. Encryption",
                         summary: "Hashing is one-way (integrity), Encryption is two-way (confidentiality).",
-                        details: "Fundamental Cryptography concepts:\n\n• **Hashing**: One-way transformation. Used for Integrity (checking if a file was changed). \n  *Examples*: SHA-256, MD5.\n• **Encryption**: Two-way transformation. Used for Confidentiality (keeping data secret).\n  *Examples*: AES, RSA.",
+                        details: `### Concept Breakdown
+Two fundamental cryptographic operations that do opposite things.
+
+*   **Hashing**: A **one-way** function. You turn data into a fixed-length string of characters (a hash). You *cannot* reverse it to get the original data back. Used for **Integrity**.
+*   **Encryption**: A **two-way** function. You scramble data with a key. You *can* decrypt it to get the original data back if you have the key. Used for **Confidentiality**.
+
+### Real-World Application
+*   **Hashing**: Storing passwords in a database. The database stores the hash of your password, not the password itself. When you log in, the system hashes your input and compares it to the stored hash.
+*   **Encryption**: Sending a credit card number over the internet. It is encrypted so that if anyone intercepts the traffic, they only see garbage data.
+
+### Non-Technical Analogy
+*   **Hashing**: **Turning a cow into a hamburger**. You can turn the cow into a burger (one-way), but you cannot turn the burger back into a cow.
+*   **Encryption**: **Putting a letter in a safe**. You lock the safe (encrypt). Anyone with the key (decrypt) can open it and read the letter again.
+
+### 🛡️ Exam Tip
+*   **Hash** = **Integrity** (Did the file change?)
+*   **Encryption** = **Confidentiality** (Can unauthorized people read it?)`,
                         video: {
                             title: "Understanding Hashing vs. Encryption: Key Differences Explained 🔒",
                             url: "https://www.loom.com/share/1539a56296264a4fb5d4a2eeaad22b9d"
@@ -461,7 +477,28 @@ Think of a **Theme Park Wristband (Disney MagicBand)**:
                         id: "symmetric-vs-asymmetric",
                         title: "Symmetric vs. Asymmetric Encryption",
                         summary: "Symmetric uses one key (faster), Asymmetric uses a key pair (public/private).",
-                        details: "• **Symmetric**: The same key encrypts and decrypts. Fast, but hard to share keys securely. \n  *Standard*: AES (Advanced Encryption Standard).\n• **Asymmetric**: Relies on a Public/Private key pair. The Public key encrypts, only the matching Private key can decrypt. Slower, but solves the key exchange problem. \n  *Standard*: RSA, ECC.",
+                        details: `### Concept Breakdown
+*   **Symmetric Encryption**: Uses the **SAME key** to encrypt and decrypt.
+    *   *Pros*: Very fast, efficient for large data.
+    *   *Cons*: How do you share the key securely? (Key Exchange Problem).
+    *   *Examples*: AES, DES, 3DES, RC4.
+*   **Asymmetric Encryption**: Uses a **Key Pair** (Public Key + Private Key).
+    *   *Public Key*: Encrypts data (Shared with everyone).
+    *   *Private Key*: Decrypts data (Kept secret by owner).
+    *   *Pros*: Solves the key exchange problem.
+    *   *Cons*: Slow and computationally expensive.
+    *   *Examples*: RSA, ECC, Diffie-Hellman, PGP.
+
+### Real-World Application
+Specific "Hybrid" approach: When you visit a secure website (HTTPS), your browser uses **Asymmetric** encryption to securely swap a **Symmetric** key. Then, it uses that Symmetric key for the rest of the session because it's faster.
+
+### Non-Technical Analogy
+*   **Symmetric**: A **House Key**. You have a copy, your spouse has a copy. Both keys lock and unlock the door. If you lose a key, you have to change the locks.
+*   **Asymmetric**: A **Mailbox**. Anyone can drop a letter in the slot (Public Key encrypts), but only the mail carrier with the master key can open the box and take the letters out (Private Key decrypts).
+
+### 🛡️ Exam Tip
+*   Need speed/bulk encryption? Use **Symmetric** (AES).
+*   Need to share keys securely? Use **Asymmetric** (RSA).`,
                         video: {
                             title: "Understanding Symmetric vs Asymmetric Encryption",
                             url: "https://www.loom.com/share/20c803acb79946ca91e9360f072a658e"
@@ -471,7 +508,25 @@ Think of a **Theme Park Wristband (Disney MagicBand)**:
                         id: "pki",
                         title: "Public Key Infrastructure (PKI)",
                         summary: "The framework for managing digital certificates and public-key encryption.",
-                        details: "PKI is what makes HTTPS and secure communication possible at scale.\n\n• **CA (Certificate Authority)**: The trusted third party that issues certificates.\n• **Certificate**: Binds a public key to an identity (like a website name).\n• **CRL (Certificate Revocation List)**: A list of certificates that are no longer valid.",
+                        details: `### Concept Breakdown
+PKI is the system of hardware, software, and policies that manages the creation, distribution, and revocation of Digital Certificates. It establishes **Trust** on the internet.
+
+*   **CA (Certificate Authority)**: The "Server of Trust". It issues certificates (e.g., VeriSign, Let's Encrypt).
+*   **Certificate**: A digital ID card that binds a Public Key to an Identity (like "google.com").
+*   **CRL (Certificate Revocation List)**: A "No Fly List" for certificates that have been stolen or expired.
+
+### Real-World Application
+When you see the **padlock icon** in your browser, PKI is working. Your browser checks the website's certificate. It sees that the certificate was signed by a trusted CA. Therefore, it trusts the website.
+
+### Non-Technical Analogy
+Think of a **Passport**:
+*   **You** are the web server.
+*   **The Passport** is the Digital Certificate.
+*   **The Government** is the Certificate Authority (CA).
+*   When you travel, customs agents trust your passport because they trust the Government that issued it, not because they know you personally.
+
+### 🛡️ Exam Tip
+If a question asks "What binds a public key to a user identity?", the answer is a **Digital Certificate**.`,
                         video: {
                             title: "Understanding Public Key Infrastructure and Trust Relationships",
                             url: "https://www.loom.com/share/37fa24a623fd460cafabb91e49a38a68"
@@ -481,7 +536,31 @@ Think of a **Theme Park Wristband (Disney MagicBand)**:
                         id: "digital-signatures",
                         title: "Digital Signatures",
                         summary: "Provide authentication, non-repudiation, and integrity.",
-                        details: "A digital signature is created by hashing the message and then encrypting the hash with your **Private Key**.\n\n• **Integrity**: Any change to the message will break the signature.\n• **Authentication**: Only the holder of the private key could have created it.\n• **Non-repudiation**: The sender cannot deny sending the message.",
+                        details: `### Concept Breakdown
+A mathematical scheme for demonstrating the authenticity of a digital message or document.
+
+*   **How it works**:
+    1.  Sender HASHES the data.
+    2.  Sender ENCRYPTS the hash with their **PRIVATE KEY**.
+    3.  Receiver DECRYPTS with Sender's **PUBLIC KEY**.
+    4.  Receiver compares the hashes.
+
+### The "Big Three" Benefits
+1.  **Authentication**: Proof of who sent it.
+2.  **Integrity**: Proof it wasn't changed.
+3.  **Non-Repudiation**: The sender cannot deny sending it (because only they have their private key).
+
+### Real-World Application
+**DocuSign**: When you electronically sign a contract, cryptographic checks ensure that the document hasn't been altered since you signed it and proving that *you* were the one who signed it.
+
+### Non-Technical Analogy
+A **Wax Seal** on a letter from a King:
+*   The unique crest proves it came from the King (**Authentication**).
+*   If the seal is broken or smudged, you know someone tampered with it (**Integrity**).
+*   The King cannot claim he didn't write it, because only he has the ring that makes that seal (**Non-Repudiation**).
+
+### 🛡️ Exam Tip
+Digital Signatures provide **Integrity** and **Non-Repudiation**. They do *not* provide Confidentiality (the message itself is usually visible, just the signature is encrypted).`,
                         video: {
                             title: "Understanding Digital Signatures: Integrity, Authentication, and Non-Repudiation",
                             url: "https://www.loom.com/share/26e7679b7401441b97d38fe91234bd80"
@@ -491,7 +570,27 @@ Think of a **Theme Park Wristband (Disney MagicBand)**:
                         id: "data-transit-rest",
                         title: "Data in Transit vs. At Rest",
                         summary: "Protecting data while it moves across a network vs while it is stored.",
-                        details: "• **Data At Rest**: Stored on a disk/database. \n  *Protection*: Full Disk Encryption (FDE), Database Encryption.\n• **Data In Transit**: Moving over a network. \n  *Protection*: TLS/SSL, IPsec, SSH.\n• **Data In Use**: Currently loaded in RAM/CPU. \n  *Protection*: Trusted Execution Environments (TEE).",
+                        details: `### Concept Breakdown
+Data exists in three states, and each needs different protection methods.
+
+1.  **Data at Rest**: Passive data stored on physical media.
+    *   *Risk*: Physical theft of the drive.
+    *   *Protection*: Full Disk Encryption (BitLocker, FileVault), USB Encryption.
+2.  **Data in Transit (Motion)**: Data traveling over a network (wired or wireless).
+    *   *Risk*: Interception (Sniffing), Man-in-the-Middle attacks.
+    *   *Protection*: TLS/SSL (HTTPS), IPsec (VPN), SSH.
+3.  **Data in Use**: Data currently in RAM or CPU caches being processed.
+    *   *Risk*: Memory scraping, malware.
+    *   *Protection*: Trusted Execution Environments (TEE), Homomorphic Encryption.
+
+### Non-Technical Analogy
+*   **At Rest**: Money in a **Vault**. (Needs thick walls and a lock).
+*   **In Transit**: Money in an **Armored Truck**. (Needs guards and bulletproof glass).
+*   **In Use**: Money in your **Hands** at the register. (Hardest to protect, you just have to be careful).
+
+### 🛡️ Exam Tip
+*   **VPN** protects Data in **Transit**.
+*   **BitLocker** protects Data **At Rest**.`,
                         video: {
                             title: "Understanding Data Encryption: In Transit vs. At Rest 🔒",
                             url: "https://www.loom.com/share/8840e7a174da45b9bc3447ae27ab708b"
@@ -629,6 +728,147 @@ Think of a **Theme Park Wristband (Disney MagicBand)**:
                             title: "Remote Access Explained (Security+ Exam)",
                             url: "https://www.loom.com/share/a1b88463d44949098705184415899f58"
                         }
+                    }
+                ]
+            },
+            {
+                id: "3.3",
+                domainId: "3.0",
+                title: "Virtualization & Cloud Computing",
+                concepts: [
+                    {
+                        id: "hypervisors",
+                        title: "Hypervisors (Type 1 vs. Type 2)",
+                        summary: "Software that creates and runs virtual machines (VMs).",
+                        details: `### Concept Breakdown
+A **Hypervisor** (or VMM - Virtual Machine Monitor) is the software layer that allows you to run multiple operating systems on a single physical computer.
+
+*   **Type 1 (Bare Metal)**: Installs directly on the hardware. No host OS needed.
+    *   *Usage*: Enterprise servers, Data Centers.
+    *   *Examples*: VMware ESXi, Microsoft Hyper-V.
+*   **Type 2 (Hosted)**: Installs as an application on top of a regular OS (Windows/Mac).
+    *   *Usage*: Developers, Students, Home labs.
+    *   *Examples*: Oracle VirtualBox, VMware Workstation.
+
+### Real-World Application
+*   **Type 1**: AWS and Azure run their massive clouds on Type 1 hypervisors because they are faster and more secure.
+*   **Type 2**: You want to test Linux on your MacBook without erasing MacOS? You install VirtualBox (Type 2).
+
+### Non-Technical Analogy
+*   **Type 1**: A **Race Car Driver**. The driver sits directly in the car (hardware) for maximum performance.
+*   **Type 2**: A **Backseat Driver**. They have to shout instructions to the person driving (the Host OS), who then controls the car. It works, but there's a delay.
+
+### 🛡️ Exam Tip
+*   **Type 1** = **Bare Metal** (Faster, Secure, Enterprise).
+*   **Type 2** = **Hosted** (Easier, Slower, Desktop).`,
+                        video: {
+                            title: "Type 1 vs Type 2 Hypervisors in 2 Minutes",
+                            url: "https://www.loom.com/share/hypervisor-explainer-placeholder"
+                        },
+                        quizQuestions: [
+                            {
+                                id: "hyp-q1",
+                                domainId: "3.0",
+                                objectiveId: "3.3",
+                                text: "Which type of hypervisor runs directly on the system hardware without a host operating system?",
+                                options: [
+                                    { id: "a", text: "Type 1" },
+                                    { id: "b", text: "Type 2" },
+                                    { id: "c", text: "Container" },
+                                    { id: "d", text: "Application cell" }
+                                ],
+                                correctOptionId: "a",
+                                explanation: "Type 1 (Bare Metal) hypervisors run directly on hardware for better performance and security."
+                            }
+                        ]
+                    },
+                    {
+                        id: "cloud-models",
+                        title: "Cloud Service Models (SPI)",
+                        summary: "SaaS, PaaS, and IaaS determine who manages what.",
+                        details: `### Concept Breakdown
+The "SPI" model describes the three main tiers of cloud computing.
+
+*   **SaaS (Software as a Service)**: You use the software. You manage **nothing**.
+    *   *Examples*: Gmail, Salesforce, Dropbox, Office 365.
+*   **PaaS (Platform as a Service)**: You manage the **App & Data**. The provider manages the OS and hardware.
+    *   *Examples*: Google App Engine, Heroku, AWS Elastic Beanstalk.
+*   **IaaS (Infrastructure as a Service)**: You manage the **OS, App, & Data**. The provider only manages the hardware/network.
+    *   *Examples*: AWS EC2, Azure VMs, Google Compute Engine.
+
+### Real-World Application
+*   **SaaS**: Using Google Docs to write a report. You don't care what server it's on or what version of Linux it runs.
+*   **IaaS**: Renting a virtual server to host a custom legacy database. You have to install Windows updates yourself.
+
+### Non-Technical Analogy
+**Pizza as a Service**:
+*   **House (On-Prem)**: You make the dough, buy ingredients, bake it, and eat it at your table.
+*   **IaaS (Take & Bake)**: You buy the pre-made pizza, but you bake it in your own oven and provide the table.
+*   **PaaS (Delivery)**: The pizza comes hot. You just need a table/plates to eat it.
+*   **SaaS (Dining Out)**: You go to the restaurant. They cook, serve, and clean up. You just eat.
+
+### 🛡️ Exam Tip
+*   **SaaS**: End-user software.
+*   **PaaS**: For Developers (code).
+*   **IaaS**: For SysAdmins (servers).`,
+                        video: {
+                            title: "Cloud Service Models (IaaS, PaaS, SaaS) Clearly Explained",
+                            url: "https://www.loom.com/share/cloud-models-placeholder"
+                        },
+                        quizQuestions: [
+                            {
+                                id: "cloud-q1",
+                                domainId: "3.0",
+                                objectiveId: "3.3",
+                                text: "A developer wants to deploy code without worrying about managing the underlying operating system security patches. Which cloud model is best?",
+                                options: [
+                                    { id: "a", text: "IaaS" },
+                                    { id: "b", text: "PaaS" },
+                                    { id: "c", text: "SaaS" },
+                                    { id: "d", text: "DaaS" }
+                                ],
+                                correctOptionId: "b",
+                                explanation: "PaaS (Platform as a Service) manages the OS and runtime, allowing developers to focus solely on their code."
+                            }
+                        ]
+                    },
+                    {
+                        id: "cloud-deployment",
+                        title: "Cloud Deployment Models",
+                        summary: "Public, Private, Community, and Hybrid clouds.",
+                        details: `### Concept Breakdown
+Who owns the cloud hardware and who can access it?
+
+*   **Public Cloud**: Owned by a third-party (AWS, Azure). usage is shared by multiple customers ("Multi-tenancy").
+*   **Private Cloud**: Hardware is dedicated to a *single* organization. Can be on-premise or hosted.
+*   **Community Cloud**: Shared by several organizations with similar concerns (e.g., a cloud for all hospitals in a state).
+*   **Hybrid Cloud**: A mix of Public and Private. You keep secrets on your Private cloud but "burst" to Public cloud for extra power.
+
+### Non-Technical Analogy
+**Transportation**:
+*   **Public Cloud**: **A Bus**. Cheap, shared with strangers, follows a set route.
+*   **Private Cloud**: **Your Own Car**. Expensive, private, you go where you want.
+*   **Hybrid Cloud**: **Renting a Car**. You own a bike (Private) but rent a Minivan (Public) when you need to move a couch.
+
+### 🛡️ Exam Tip
+**Multi-tenancy** (sharing hardware with strangers) is the biggest security concern with **Public Cloud**.`,
+                        video: null,
+                        quizQuestions: [
+                            {
+                                id: "deploy-q1",
+                                domainId: "3.0",
+                                objectiveId: "3.3",
+                                text: "Which cloud deployment model involves infrastructure shared by several organizations with shared concerns?",
+                                options: [
+                                    { id: "a", text: "Public" },
+                                    { id: "b", text: "Private" },
+                                    { id: "c", text: "Hybrid" },
+                                    { id: "d", text: "Community" }
+                                ],
+                                correctOptionId: "d",
+                                explanation: "A Community Cloud is shared by a specific community of organizations that have shared concerns (e.g., compliance, security requirements)."
+                            }
+                        ]
                     }
                 ]
             }
