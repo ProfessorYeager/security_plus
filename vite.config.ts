@@ -10,5 +10,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: './', // Use relative paths for flexible deployment
+  base: '/security_plus/', // Matches the repository name for GitHub Pages folder hosting
 })
