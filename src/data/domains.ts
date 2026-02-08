@@ -786,6 +786,7 @@ You download a "Free Minecraft Crack" tool. It runs the game, but in the backgro
                 ]
             }
         ]
+    },
     {
         id: "3.0",
         title: "Security Architecture",
