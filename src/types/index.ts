@@ -27,18 +27,39 @@ export interface Domain {
     objectives: Objective[];
 }
 
+export type QuestionType = 'MULTIPLE_CHOICE' | 'MATCHING' | 'ORDERING';
+
 export interface QuestionOption {
     id: string;
     text: string;
 }
 
+export interface DraggableItem {
+    id: string;
+    text: string;
+    // For matching: the ID of the zone it belongs to (correct answer)
+    matchId?: string;
+}
+
+export interface DropZone {
+    id: string;
+    label: string;
+}
+
 export interface Question {
     id: string;
     domainId: string;
-    objectiveId: string; // The specific objective this tests
+    objectiveId: string;
+    type: QuestionType; // default to 'MULTIPLE_CHOICE' if undefined for backward compat
     text: string;
-    options: QuestionOption[];
-    correctOptionId: string;
+    options?: QuestionOption[]; // For Multiple Choice
+    correctOptionId?: string;   // For Multiple Choice
+
+    // For PBQs
+    draggableItems?: DraggableItem[];
+    dropZones?: DropZone[]; // For Matching (buckets)
+    correctOrder?: string[]; // For Ordering (list of item IDs in correct order)
+
     explanation: string;
 }
 

@@ -401,6 +401,7 @@ Think of a **Theme Park Wristband (Disney MagicBand)**:
                                 id: "sso-q1",
                                 domainId: "1.0",
                                 objectiveId: "1.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which of the following is the biggest security risk associated with SSO?",
                                 options: [
                                     { id: "a", text: "Slow login times" },
