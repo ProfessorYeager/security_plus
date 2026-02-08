@@ -15,7 +15,9 @@ export const domains: Domain[] = [
                         id: "cia-triad",
                         title: "CIA Triad",
                         summary: "Confidentiality, Integrity, and Availability are the three pillars of information security.",
-                        details: `### Concept Breakdown
+                        details: `![CIA Triad Diagram](/Users/gabrielyeager/.gemini/antigravity/brain/756e9add-477a-4677-80fd-217c5fb94c1b/cia_triad_diagram_1770524325832.png)
+
+### Concept Breakdown
 The **CIA Triad** is the foundational model for information security. It represents the three main goals that every security control tries to achieve.
 
 *   **Confidentiality (C)**: Ensuring that data is only accessed by authorized personnel.
@@ -41,6 +43,7 @@ If a question mentions "encryption" or "access controls," it's usually **Confide
                                 id: "cia-q1",
                                 domainId: "1.0",
                                 objectiveId: "1.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "An attacker performs a DoS (Denial of Service) attack on a web server. Which pillar of the CIA triad is being directly attacked?",
                                 options: [
                                     { id: "a", text: "Confidentiality" },
@@ -55,6 +58,7 @@ If a question mentions "encryption" or "access controls," it's usually **Confide
                                 id: "cia-q2",
                                 domainId: "1.0",
                                 objectiveId: "1.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A user encrypts a sensitive file before sending it over email. Which security goal is primarily being addressed?",
                                 options: [
                                     { id: "a", text: "Confidentiality" },
@@ -69,6 +73,7 @@ If a question mentions "encryption" or "access controls," it's usually **Confide
                                 id: "cia-q3",
                                 domainId: "1.0",
                                 objectiveId: "1.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A system administrator checks a file's hash value after a transfer to ensure it was not corrupted. Which pillar is this verifying?",
                                 options: [
                                     { id: "a", text: "Confidentiality" },
@@ -111,6 +116,7 @@ Start with **Authentication** (Who are you?), then move to **Authorization** (Wh
                                 id: "auth-q1",
                                 domainId: "1.0",
                                 objectiveId: "1.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A user enters their username and password into a login screen. Which process is occurring?",
                                 options: [
                                     { id: "a", text: "Authentication" },
@@ -125,6 +131,7 @@ Start with **Authentication** (Who are you?), then move to **Authorization** (Wh
                                 id: "auth-q2",
                                 domainId: "1.0",
                                 objectiveId: "1.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "After logging in, a user tries to delete a file but receives a 'Permission Denied' error. Which security mechanism is blocking them?",
                                 options: [
                                     { id: "a", text: "Authentication" },
@@ -139,6 +146,7 @@ Start with **Authentication** (Who are you?), then move to **Authorization** (Wh
                                 id: "auth-q3",
                                 domainId: "1.0",
                                 objectiveId: "1.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which of the following MUST happen first in a standard security flow?",
                                 options: [
                                     { id: "a", text: "Authorization" },
@@ -182,6 +190,7 @@ Don't forget **Accounting**! Security isn't just about letting people in (AuthN/
                                 id: "aaa-q1",
                                 domainId: "1.0",
                                 objectiveId: "1.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which component of the AAA framework is responsible for generating an audit trail of user activities?",
                                 options: [
                                     { id: "a", text: "Authentication" },
@@ -196,6 +205,7 @@ Don't forget **Accounting**! Security isn't just about letting people in (AuthN/
                                 id: "aaa-q2",
                                 domainId: "1.0",
                                 objectiveId: "1.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "The first 'A' in the AAA framework stands for which of the following?",
                                 options: [
                                     { id: "a", text: "Accounting" },
@@ -210,6 +220,7 @@ Don't forget **Accounting**! Security isn't just about letting people in (AuthN/
                                 id: "aaa-q3",
                                 domainId: "1.0",
                                 objectiveId: "1.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A security engineer is configuring a RADIUS server to manage network access. This is an implementation of which framework?",
                                 options: [
                                     { id: "a", text: "CIA Triad" },
@@ -257,6 +268,7 @@ Least Privilege is a preventative control. It doesn't stop an attack from happen
                                 id: "lp-q1",
                                 domainId: "1.0",
                                 objectiveId: "1.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A user is complaining that they cannot access a folder needed for a one-time project. The administrator provides full administrative access to 'save time'. Which principle is being violated?",
                                 options: [
                                     { id: "a", text: "Separation of Duties" },
@@ -271,6 +283,7 @@ Least Privilege is a preventative control. It doesn't stop an attack from happen
                                 id: "lp-q2",
                                 domainId: "1.0",
                                 objectiveId: "1.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which of the following is the primary goal of implementing Least Privilege?",
                                 options: [
                                     { id: "a", text: "Improve system performance" },
@@ -285,6 +298,7 @@ Least Privilege is a preventative control. It doesn't stop an attack from happen
                                 id: "lp-q3",
                                 domainId: "1.0",
                                 objectiveId: "1.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A server process runs with 'root' privileges despite only needing to write to a specific log file. This is a failure of which concept?",
                                 options: [
                                     { id: "a", text: "Confidentiality" },
@@ -332,6 +346,7 @@ Think of a **medieval castle gate**:
                                 id: "mfa-q1",
                                 domainId: "1.0",
                                 objectiveId: "1.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A user logs in using a password and a code sent via SMS to their phone. Which two MFA categories are being used?",
                                 options: [
                                     { id: "a", text: "Something you know and Something you are" },
@@ -346,6 +361,7 @@ Think of a **medieval castle gate**:
                                 id: "mfa-q2",
                                 domainId: "1.0",
                                 objectiveId: "1.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which of the following is considered 'Something you are'?",
                                 options: [
                                     { id: "a", text: "Hardware token" },
@@ -360,6 +376,7 @@ Think of a **medieval castle gate**:
                                 id: "mfa-q3",
                                 domainId: "1.0",
                                 objectiveId: "1.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "An organization requires a password plus another password as a 'security question'. Is this MFA?",
                                 options: [
                                     { id: "a", text: "Yes, because it uses two steps" },
@@ -462,6 +479,7 @@ Two fundamental cryptographic operations that do opposite things.
                                 id: "hash-q1",
                                 domainId: "1.0",
                                 objectiveId: "1.4",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which of the following is a one-way security mechanism used specifically for integrity?",
                                 options: [
                                     { id: "a", text: "AES Encryption" },
@@ -509,7 +527,9 @@ Specific "Hybrid" approach: When you visit a secure website (HTTPS), your browse
                         id: "pki",
                         title: "Public Key Infrastructure (PKI)",
                         summary: "The framework for managing digital certificates and public-key encryption.",
-                        details: `### Concept Breakdown
+                        details: `![PKI Diagram](/Users/gabrielyeager/.gemini/antigravity/brain/756e9add-477a-4677-80fd-217c5fb94c1b/pki_alice_bob_1770524353200.png)
+
+### Concept Breakdown
 PKI is the system of hardware, software, and policies that manages the creation, distribution, and revocation of Digital Certificates. It establishes **Trust** on the internet.
 
 *   **CA (Certificate Authority)**: The "Server of Trust". It issues certificates (e.g., VeriSign, Let's Encrypt).
@@ -642,6 +662,7 @@ If the exam mentions **"Nation-State"**, **"Government"**, or **"Well-Funded"**,
                                 id: "apt-q1",
                                 domainId: "2.0",
                                 objectiveId: "2.1",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which type of threat actor is characterized by having significant resources and the intent to conduct espionage?",
                                 options: [
                                     { id: "a", text: "Script Kiddie" },
@@ -802,7 +823,7 @@ You download a "Free Minecraft Crack" tool. It runs the game, but in the backgro
                         id: "dmz",
                         title: "DMZ & Screened Subnets",
                         summary: "A buffer zone that protects the internal network from untrusted traffic.",
-                        details: "Formerly known as a DMZ (Demilitarized Zone), a **Screened Subnet** is a physical or logical subnetwork that contains and exposes an organization's external-facing services (like web servers) to an untrusted network, usually the internet.\n\n• **Purpose**: To add an additional layer of security to the local area network (LAN).\n• **Typical Layout**: A 'triple-homed' firewall or two firewalls (External and Internal).\n• **Common Services**: Web servers, Mail servers, FTP servers, DNS servers.\n\n*Real-world example*: If a web server in the screened subnet is compromised, the internal firewall still prevents the attacker from accessing the sensitive HR database in the internal network.",
+                        details: "![DMZ Network Diagram](/Users/gabrielyeager/.gemini/antigravity/brain/756e9add-477a-4677-80fd-217c5fb94c1b/network_dmz_topology_1770524367233.png)\n\nFormerly known as a DMZ (Demilitarized Zone), a **Screened Subnet** is a physical or logical subnetwork that contains and exposes an organization's external-facing services (like web servers) to an untrusted network, usually the internet.\n\n• **Purpose**: To add an additional layer of security to the local area network (LAN).\n• **Typical Layout**: A 'triple-homed' firewall or two firewalls (External and Internal).\n• **Common Services**: Web servers, Mail servers, FTP servers, DNS servers.\n\n*Real-world example*: If a web server in the screened subnet is compromised, the internal firewall still prevents the attacker from accessing the sensitive HR database in the internal network.",
                         video: {
                             title: "DMZs on the Security+ Exam (Why Screened Subnets Exist)",
                             url: "https://www.loom.com/share/bda47497716743c3af59548514c59509"
@@ -812,6 +833,7 @@ You download a "Free Minecraft Crack" tool. It runs the game, but in the backgro
                                 id: "dmz-q1",
                                 domainId: "1.0",
                                 objectiveId: "3.1",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which term is now the preferred CompTIA term for a DMZ?",
                                 options: [
                                     { id: "a", text: "Air Gap" },
@@ -826,6 +848,7 @@ You download a "Free Minecraft Crack" tool. It runs the game, but in the backgro
                                 id: "dmz-q2",
                                 domainId: "1.0",
                                 objectiveId: "3.1",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A security engineer is placing a public-facing web server in the network. Where is the most secure place for this server?",
                                 options: [
                                     { id: "a", text: "In the internal Intranet" },
@@ -869,6 +892,7 @@ You download a "Free Minecraft Crack" tool. It runs the game, but in the backgro
                                 id: "app-q1",
                                 domainId: "3.0",
                                 objectiveId: "3.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A device is configured to detect an ongoing SQL injection attack and immediately reset the TCP connection. What type of device is this?",
                                 options: [
                                     { id: "a", text: "IDS" },
@@ -895,6 +919,7 @@ You download a "Free Minecraft Crack" tool. It runs the game, but in the backgro
                                 id: "router-q1",
                                 domainId: "3.0",
                                 objectiveId: "3.2",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A security administrator needs to manage a router remotely. Which protocol should be used for the most secure management connection?",
                                 options: [
                                     { id: "a", text: "Telnet" },
@@ -958,6 +983,7 @@ A **Hypervisor** (or VMM - Virtual Machine Monitor) is the software layer that a
                                 id: "hyp-q1",
                                 domainId: "3.0",
                                 objectiveId: "3.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which type of hypervisor runs directly on the system hardware without a host operating system?",
                                 options: [
                                     { id: "a", text: "Type 1" },
@@ -1008,6 +1034,7 @@ The "SPI" model describes the three main tiers of cloud computing.
                                 id: "cloud-q1",
                                 domainId: "3.0",
                                 objectiveId: "3.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A developer wants to deploy code without worrying about managing the underlying operating system security patches. Which cloud model is best?",
                                 options: [
                                     { id: "a", text: "IaaS" },
@@ -1046,6 +1073,7 @@ Who owns the cloud hardware and who can access it?
                                 id: "deploy-q1",
                                 domainId: "3.0",
                                 objectiveId: "3.3",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which cloud deployment model involves infrastructure shared by several organizations with shared concerns?",
                                 options: [
                                     { id: "a", text: "Public" },
@@ -1103,6 +1131,7 @@ You never log in as **root** for daily tasks. You log in as a standard user (e.g
                                 id: "linux-q1",
                                 domainId: "4.0",
                                 objectiveId: "4.1",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which command in Linux allows a standard user to run a single command with administrative privileges?",
                                 options: [
                                     { id: "a", text: "su" },
@@ -1146,6 +1175,7 @@ In a company, you create a group called \`HR_Managers\`. You give that group rea
                                 id: "grp-q1",
                                 domainId: "4.0",
                                 objectiveId: "4.1",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A system administrator wants to give the Sales team access to a shared directory without modifying permissions for each user. What should they use?",
                                 options: [
                                     { id: "a", text: "DAC" },
@@ -1190,6 +1220,7 @@ When you change your password on your work laptop, you are talking to the **Doma
                                 id: "ad-q1",
                                 domainId: "4.0",
                                 objectiveId: "4.1",
+                                type: "MULTIPLE_CHOICE",
                                 text: "Which component of Active Directory is used to enforce security settings, such as password complexity, across multiple computers?",
                                 options: [
                                     { id: "a", text: "LDAP" },
@@ -1220,7 +1251,9 @@ When you change your password on your work laptop, you are talking to the **Doma
                         id: "risk-types",
                         title: "Qualitative vs. Quantitative Risk",
                         summary: "Measuring risk with intuition vs. numbers.",
-                        details: `### Concept Breakdown
+                        details: `![Risk Management Comparison](/Users/gabrielyeager/.gemini/antigravity/brain/756e9add-477a-4677-80fd-217c5fb94c1b/risk_management_comparison_1770524339840.png)
+
+### Concept Breakdown
 How do you measure how "bad" a risk is?
 
 *   **Qualitative Risk Analysis**: Subjective. Uses **colors** (Red/Yellow/Green) or **words** (High/Medium/Low).
@@ -1250,6 +1283,7 @@ How do you measure how "bad" a risk is?
                                 id: "risk-q1",
                                 domainId: "5.0",
                                 objectiveId: "5.1",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A Chief Information Security Officer (CISO) is presenting a budget request and states that a specific security control will save the company $50,000 annually. What type of risk analysis was performed?",
                                 options: [
                                     { id: "a", text: "Qualitative" },
@@ -1297,6 +1331,7 @@ Once you find a risk, you have 4 main choices (ATMA):
                                 id: "resp-q1",
                                 domainId: "5.0",
                                 objectiveId: "5.1",
+                                type: "MULTIPLE_CHOICE",
                                 text: "A company decides to purchase cyber liability insurance to cover potential losses from a data breach. Which risk response strategy is this?",
                                 options: [
                                     { id: "a", text: "Avoidance" },

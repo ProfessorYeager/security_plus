@@ -4,6 +4,8 @@ import { Dashboard } from './pages/Dashboard';
 import { Study } from './pages/Study';
 import { Quiz } from './pages/Quiz';
 import { Analytics } from './pages/Analytics';
+import { Flashcards } from './pages/Flashcards';
+import { Arcade } from './pages/Arcade';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="study" element={<Study />} />
         <Route path="quiz" element={<Quiz />} />
         <Route path="stats" element={<Analytics />} />
+        <Route path="flashcards" element={<Flashcards />} />
+        <Route path="arcade" element={<Arcade />} />
       </Route>
     </Routes>
   );

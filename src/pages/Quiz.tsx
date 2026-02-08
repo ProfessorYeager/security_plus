@@ -33,7 +33,7 @@ export const Quiz = () => {
     // Track correct answers by domain for detailed analytics
     const [domainScores, setDomainScores] = useState<Record<string, { correct: number; total: number }>>({});
 
-    const { addQuizResult, addXp } = useStore();
+    const { addQuizResult, addXP } = useStore();
 
     const startQuiz = (mode: 'QUICK' | 'FULL') => {
         const allQ = getAllQuestions();
@@ -187,7 +187,7 @@ export const Quiz = () => {
             total: currentQuestions.length,
             timestamp: Date.now()
         });
-        addXp((finalScore * 10) + (gameMode === 'FULL' ? 100 : 20));
+        addXP((finalScore * 10) + (gameMode === 'FULL' ? 100 : 20));
     };
 
     const formatTime = (seconds: number) => {

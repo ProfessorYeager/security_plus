@@ -85,7 +85,7 @@ export const StudyQuiz: React.FC<StudyQuizProps> = ({ questions, onComplete }) =
             </h3>
 
             <div className="grid grid-cols-1 gap-3">
-                {currentQuestion.options.map((option) => {
+                {currentQuestion.options?.map((option) => {
                     const isSelected = selectedOptionId === option.id;
                     const isCorrect = isSubmitted && option.id === currentQuestion.correctOptionId;
                     const isWrong = isSubmitted && isSelected && option.id !== currentQuestion.correctOptionId;
@@ -96,12 +96,12 @@ export const StudyQuiz: React.FC<StudyQuizProps> = ({ questions, onComplete }) =
                             onClick={() => handleSelectAction(option.id)}
                             disabled={isSubmitted}
                             className={`p-4 rounded-lg border text-left transition-all duration-200 ${isCorrect
-                                    ? 'bg-cyber-green/20 border-cyber-green text-cyber-green'
-                                    : isWrong
-                                        ? 'bg-red-500/20 border-red-500 text-red-500'
-                                        : isSelected
-                                            ? 'bg-cyber-blue/20 border-cyber-blue text-cyber-blue'
-                                            : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10'
+                                ? 'bg-cyber-green/20 border-cyber-green text-cyber-green'
+                                : isWrong
+                                    ? 'bg-red-500/20 border-red-500 text-red-500'
+                                    : isSelected
+                                        ? 'bg-cyber-blue/20 border-cyber-blue text-cyber-blue'
+                                        : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10'
                                 }`}
                         >
                             <div className="flex items-center gap-3">
@@ -123,8 +123,8 @@ export const StudyQuiz: React.FC<StudyQuizProps> = ({ questions, onComplete }) =
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         className={`p-4 rounded-lg ${selectedOptionId === currentQuestion.correctOptionId
-                                ? 'bg-cyber-green/10 text-cyber-green/90'
-                                : 'bg-red-500/10 text-red-400'
+                            ? 'bg-cyber-green/10 text-cyber-green/90'
+                            : 'bg-red-500/10 text-red-400'
                             }`}
                     >
                         <p className="text-sm">

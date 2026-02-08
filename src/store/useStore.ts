@@ -7,7 +7,7 @@ interface StoreState extends UserProgress {
     toggleConceptComplete: (conceptId: string) => void;
     addQuizResult: (result: UserProgress['quizHistory'][0]) => void;
     updateStreak: () => void;
-    addXp: (amount: number) => void;
+    addXP: (amount: number) => void;
 }
 
 const INITIAL_STATE: UserProgress = {
@@ -45,7 +45,7 @@ export const useStore = create<StoreState>()(
                 xp: state.xp + (result.score * 10) // 10 XP per correct point equivalent? Or just custom logic
             })),
 
-            addXp: (amount) => set((state) => ({
+            addXP: (amount) => set((state) => ({
                 xp: state.xp + amount
             })),
 
