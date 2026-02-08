@@ -3,6 +3,7 @@ import { Layout } from './components/layout/Layout';
 import { Dashboard } from './pages/Dashboard';
 import { Study } from './pages/Study';
 import { Quiz } from './pages/Quiz';
+import { Analytics } from './pages/Analytics';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <Route index element={<Dashboard />} />
         <Route path="study" element={<Study />} />
         <Route path="quiz" element={<Quiz />} />
-        <Route path="stats" element={<Dashboard />} /> {/* Placeholder for now */}
+        <Route path="stats" element={<Analytics />} />
       </Route>
     </Routes>
   );
