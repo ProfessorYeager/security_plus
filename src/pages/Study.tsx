@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { clsx } from 'clsx';
 import { domains } from '../data';
-import { Concept, Objective } from '../types';
+import { Concept } from '../types';
 import { useStore } from '../store/useStore';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
-import { CheckCircle, Circle, Play, ChevronRight, ChevronDown } from 'lucide-react';
+import { CheckCircle, Circle, Play, ChevronRight, ChevronDown, GraduationCap, BookOpen } from 'lucide-react';
+import { StudyQuiz } from '../components/StudyQuiz';
 
 export const Study = () => {
     const [selectedDomainId, setSelectedDomainId] = useState<string | null>(domains[0].id);
     const [selectedObjectiveId, setSelectedObjectiveId] = useState<string | null>(domains[0].objectives[0].id);
     const [selectedConcept, setSelectedConcept] = useState<Concept | null>(domains[0].objectives[0].concepts[0]);
+    const [activeTab, setActiveTab] = useState<'CONTENT' | 'QUIZ'>('CONTENT');
 
     const { completedConcepts, toggleConceptComplete } = useStore();
 
@@ -18,6 +20,12 @@ export const Study = () => {
     const activeObjective = activeDomain?.objectives.find(o => o.id === selectedObjectiveId);
 
     const isCompleted = selectedConcept ? completedConcepts.includes(selectedConcept.id) : false;
+
+    const handleConceptSelect = (concept: Concept, objectiveId: string) => {
+        setSelectedObjectiveId(objectiveId);
+        setSelectedConcept(concept);
+        setActiveTab('CONTENT');
+    };
 
     return (
         <div className="h-[calc(100vh-8rem)] flex gap-6">
@@ -49,10 +57,7 @@ export const Study = () => {
                                                     return (
                                                         <button
                                                             key={concept.id}
-                                                            onClick={() => {
-                                                                setSelectedObjectiveId(objective.id);
-                                                                setSelectedConcept(concept);
-                                                            }}
+                                                            onClick={() => handleConceptSelect(concept, objective.id)}
                                                             className={clsx(
                                                                 "w-full flex items-center gap-2 px-2 py-1.5 rounded text-sm text-left transition-colors",
                                                                 selectedConcept?.id === concept.id
@@ -80,7 +85,7 @@ export const Study = () => {
                 {selectedConcept ? (
                     <Card className="h-full flex flex-col overflow-hidden">
                         {/* Header */}
-                        <div className="flex justify-between items-start mb-6">
+                        <div className="flex justify-between items-start mb-6 shrink-0">
                             <div>
                                 <h1 className="text-2xl font-bold text-white mb-2">{selectedConcept.title}</h1>
                                 <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -98,36 +103,85 @@ export const Study = () => {
                             </Button>
                         </div>
 
-                        {/* Content */}
-                        <div className="flex-1 overflow-y-auto space-y-6 pr-2">
-
-                            {/* Video Embed */}
-                            {selectedConcept.video ? (
-                                <div className="aspect-video w-full bg-black rounded-xl overflow-hidden border border-white/10 relative group">
-                                    <iframe
-                                        src={selectedConcept.video.url.replace("share", "embed")}
-                                        className="w-full h-full"
-                                        frameBorder="0"
-                                        allowFullScreen
-                                        title={selectedConcept.video.title}
-                                    ></iframe>
+                        {/* Tabs */}
+                        <div className="flex gap-4 border-b border-white/10 mb-6 shrink-0">
+                            <button
+                                onClick={() => setActiveTab('CONTENT')}
+                                className={clsx(
+                                    "pb-2 px-1 text-sm font-medium transition-colors border-b-2",
+                                    activeTab === 'CONTENT' ? "border-cyber-green text-cyber-green" : "border-transparent text-gray-400 hover:text-white"
+                                )}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <BookOpen size={16} />
+                                    Intelligence Brief
                                 </div>
-                            ) : (
-                                <div className="aspect-video w-full bg-gray-900/50 rounded-xl border border-white/10 flex flex-col items-center justify-center text-gray-500 gap-4">
-                                    <Play size={48} className="opacity-20" />
-                                    <p>Video Intelligence Unavailable</p>
-                                    <Button variant="ghost" size="sm">Request Briefing</Button>
-                                </div>
+                            </button>
+                            {selectedConcept.quizQuestions && selectedConcept.quizQuestions.length > 0 && (
+                                <button
+                                    onClick={() => setActiveTab('QUIZ')}
+                                    className={clsx(
+                                        "pb-2 px-1 text-sm font-medium transition-colors border-b-2",
+                                        activeTab === 'QUIZ' ? "border-cyber-green text-cyber-green" : "border-transparent text-gray-400 hover:text-white"
+                                    )}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <GraduationCap size={16} />
+                                        Knowledge Check
+                                    </div>
+                                </button>
                             )}
+                        </div>
 
-                            {/* Text Summary */}
-                            <div className="prose prose-invert max-w-none">
-                                <h3 className="text-lg font-bold text-white">Intelligence Brief</h3>
-                                <p className="text-gray-300 leading-relaxed text-lg">
-                                    {selectedConcept.summary}
-                                </p>
-                            </div>
+                        {/* Content Area */}
+                        <div className="flex-1 overflow-y-auto space-y-6 pr-2">
+                            {activeTab === 'CONTENT' ? (
+                                <>
+                                    {/* Video Embed */}
+                                    {selectedConcept.video ? (
+                                        <div className="aspect-video w-full bg-black rounded-xl overflow-hidden border border-white/10 relative group shrink-0">
+                                            <iframe
+                                                src={selectedConcept.video.url.replace("share", "embed")}
+                                                className="w-full h-full"
+                                                frameBorder="0"
+                                                allowFullScreen
+                                                title={selectedConcept.video.title}
+                                            ></iframe>
+                                        </div>
+                                    ) : (
+                                        <div className="aspect-video w-full bg-gray-900/50 rounded-xl border border-white/10 flex flex-col items-center justify-center text-gray-500 gap-4 shrink-0">
+                                            <Play size={48} className="opacity-20" />
+                                            <p>Video Intelligence Unavailable</p>
+                                            <Button variant="ghost" size="sm">Request Briefing</Button>
+                                        </div>
+                                    )}
 
+                                    {/* Text Summary */}
+                                    <div className="prose prose-invert max-w-none">
+                                        <p className="text-cyber-green font-mono text-xs uppercase tracking-widest mb-2 font-bold">Concept Overview</p>
+                                        <p className="text-gray-300 leading-relaxed text-lg mb-6">
+                                            {selectedConcept.summary}
+                                        </p>
+
+                                        {selectedConcept.details && (
+                                            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                                                <p className="text-cyber-blue font-mono text-xs uppercase tracking-widest mb-4 font-bold">Deep Dive Analysis</p>
+                                                <div className="text-gray-300 whitespace-pre-wrap leading-relaxed">
+                                                    {selectedConcept.details}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </>
+                            ) : (
+                                <StudyQuiz
+                                    questions={selectedConcept.quizQuestions!}
+                                    onComplete={() => {
+                                        if (!isCompleted) toggleConceptComplete(selectedConcept.id);
+                                        setActiveTab('CONTENT');
+                                    }}
+                                />
+                            )}
                         </div>
                     </Card>
                 ) : (

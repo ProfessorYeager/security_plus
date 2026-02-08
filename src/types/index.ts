@@ -8,7 +8,9 @@ export interface Concept {
     id: string;
     title: string;
     summary: string;
+    details?: string; // More in-depth explanation
     video?: VideoResource | null;
+    quizQuestions?: Question[]; // Mini-quizzes per concept
 }
 
 export interface Objective {
