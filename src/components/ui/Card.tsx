@@ -4,11 +4,12 @@ import { ReactNode } from 'react';
 interface CardProps {
     children: ReactNode;
     className?: string;
+    contentClassName?: string;
     title?: ReactNode;
     action?: ReactNode;
 }
 
-export const Card = ({ children, className, title, action }: CardProps) => {
+export const Card = ({ children, className, contentClassName, title, action }: CardProps) => {
     return (
         <div
             className={clsx(
@@ -22,7 +23,7 @@ export const Card = ({ children, className, title, action }: CardProps) => {
                     {action && <div>{action}</div>}
                 </div>
             )}
-            <div className="px-6 py-4">{children}</div>
+            <div className={clsx("px-6 py-4", contentClassName)}>{children}</div>
         </div>
     );
 };
