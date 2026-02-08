@@ -64,6 +64,25 @@ export const questions: Question[] = [
             { id: "item_22", text: "Port 22", matchId: "zone_ssh" },
             { id: "item_3389", text: "Port 3389", matchId: "zone_rdp" }
         ],
+        correctOptionId: "CORRECT",
         explanation: "HTTP = 80, HTTPS = 443, SSH = 22, RDP = 3389. Memorizing these common ports is essential for the exam."
+    },
+    {
+        id: "q_pbq_2",
+        domainId: "4.0",
+        objectiveId: "incident_response",
+        type: "ORDERING",
+        text: "Place the steps of the Incident Response Process (PICERL) in the correct order.",
+        options: [
+            { id: "p2", text: "Identification" },
+            { id: "p4", text: "Eradication" },
+            { id: "p1", text: "Preparation" },
+            { id: "p6", text: "Lessons Learned" },
+            { id: "p3", text: "Containment" },
+            { id: "p5", text: "Recovery" }
+        ],
+        correctOrder: ["p1", "p2", "p3", "p4", "p5", "p6"],
+        correctOptionId: "CORRECT",
+        explanation: "The correct order is Preparation, Identification, Containment, Eradication, Recovery, and Lessons Learned (PICERL)."
     }
 ];

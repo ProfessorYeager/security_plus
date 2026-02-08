@@ -1,11 +1,12 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { getAllQuestions } from '../data/utils';
 import { Question } from '../types';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { ProgressBar } from '../components/ui/ProgressBar';
-import { CheckCircle, XCircle, Clock, ArrowRight, RotateCcw, BarChart3, Flag, LayoutGrid } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, ArrowRight, RotateCcw, BarChart3, Flag, LayoutGrid, FileCheck, Target, BrainCircuit, Gamepad2 } from 'lucide-react';
 import { MatchingQuestion } from '../components/pbq/MatchingQuestion';
 import clsx from 'clsx';
 
@@ -199,22 +200,65 @@ export const Quiz = () => {
     // --- RENDERERS ---
 
     if (gameState === 'MENU') {
+        const navigate = useNavigate();
         const availableQuestionCount = getAllQuestions().length;
+
         return (
-            <div className="max-w-2xl mx-auto space-y-8 animate-fade-in text-center">
-                <h1 className="text-4xl font-bold text-white mb-4">Live Fire Exercise</h1>
-                <Card className="p-8 border-t-4 border-t-cyber-green">
-                    <h2 className="text-2xl font-bold mb-4 text-white">Select Simulation Protocol</h2>
-                    <p className="text-gray-400 mb-8">Choose your engagement parameters. <br /> <span className="text-xs text-gray-500">Total Intel Available: {availableQuestionCount} Questions</span></p>
-                    <div className="flex flex-col gap-4 sm:flex-row justify-center">
-                        <Button variant="primary" size="lg" onClick={() => startQuiz('QUICK')}>
-                            Quick Skirmish (10 Qs)
-                        </Button>
-                        <Button variant="outline" size="lg" onClick={() => startQuiz('FULL')} disabled={availableQuestionCount < 10}>
-                            Full Simulation (90 Qs)
-                        </Button>
-                    </div>
-                </Card>
+            <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+                <div className="text-center mb-8">
+                    <h1 className="text-4xl font-bold text-white mb-2">Live Fire Exercises</h1>
+                    <p className="text-gray-400">Engage in simulation drills and full exam practice.</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Exam Simulation Section */}
+                    <Card className="p-6 border-t-4 border-t-cyber-green h-full flex flex-col">
+                        <div className="mb-6 flex-1">
+                            <h2 className="text-2xl font-bold mb-2 text-white flex items-center gap-2">
+                                <FileCheck size={24} className="text-cyber-green" />
+                                Exam Simulation
+                            </h2>
+                            <p className="text-gray-400 text-sm">
+                                Realistic test environment. 90 minutes, 90 questions (Full), or a quick 10-question skirmish.
+                            </p>
+                        </div>
+
+                        <div className="space-y-3">
+                            <Button variant="primary" className="w-full justify-between" onClick={() => startQuiz('QUICK')}>
+                                <span>Quick Skirmish</span>
+                                <span className="text-xs bg-black/30 px-2 py-1 rounded">10 Qs</span>
+                            </Button>
+                            <Button variant="outline" className="w-full justify-between" onClick={() => startQuiz('FULL')} disabled={availableQuestionCount < 10}>
+                                <span>Full Mock Exam</span>
+                                <span className="text-xs bg-white/10 px-2 py-1 rounded">90 Mins</span>
+                            </Button>
+                        </div>
+                    </Card>
+
+                    {/* Training Drills Section */}
+                    <Card className="p-6 border-t-4 border-t-cyber-blue h-full flex flex-col">
+                        <div className="mb-6 flex-1">
+                            <h2 className="text-2xl font-bold mb-2 text-white flex items-center gap-2">
+                                <Target size={24} className="text-cyber-blue" />
+                                Training Drills
+                            </h2>
+                            <p className="text-gray-400 text-sm">
+                                Targeted mini-games and tools to build muscle memory for specific domains.
+                            </p>
+                        </div>
+
+                        <div className="space-y-3">
+                            <Button variant="ghost" className="w-full justify-between border border-white/10 hover:bg-white/5" onClick={() => navigate('/flashcards')}>
+                                <span className="flex items-center gap-2"><BrainCircuit size={16} /> Flashcards</span>
+                                <span className="text-xs bg-cyber-blue/20 text-cyber-blue px-2 py-1 rounded">Study</span>
+                            </Button>
+                            <Button variant="ghost" className="w-full justify-between border border-white/10 hover:bg-white/5" onClick={() => navigate('/arcade')}>
+                                <span className="flex items-center gap-2"><Gamepad2 size={16} /> Port Blitz</span>
+                                <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded">Arcade</span>
+                            </Button>
+                        </div>
+                    </Card>
+                </div>
             </div>
         );
     }
