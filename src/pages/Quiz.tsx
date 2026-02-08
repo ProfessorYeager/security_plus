@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useStore } from '../store/useStore';
-import { questions } from '../data';
+import { getAllQuestions } from '../data/utils';
 import { Question } from '../types';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { ProgressBar } from '../components/ui/ProgressBar';
-import { CheckCircle, XCircle, Clock, ArrowRight, RotateCcw } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, ArrowRight, RotateCcw, BarChart3 } from 'lucide-react';
 import clsx from 'clsx';
 
 type QuizState = 'MENU' | 'PLAYING' | 'RESULTS';
@@ -18,16 +18,21 @@ export const Quiz = () => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [isAnswered, setIsAnswered] = useState(false);
     const [timer, setTimer] = useState(0); // seconds
+    // Track correct answers by domain for detailed analytics
+    const [domainScores, setDomainScores] = useState<Record<string, { correct: number; total: number }>>({});
 
     const { addQuizResult, addXp } = useStore();
 
     const startQuiz = (mode: 'QUICK' | 'FULL') => {
+        const allQ = getAllQuestions();
         const count = mode === 'QUICK' ? 10 : 90;
         // Shuffle and slice
-        const shuffled = [...questions].sort(() => 0.5 - Math.random()).slice(0, count);
+        const shuffled = [...allQ].sort(() => 0.5 - Math.random()).slice(0, count);
+
         setCurrentQuestions(shuffled);
         setCurrentIndex(0);
         setScore(0);
+        setDomainScores({});
         setGameState('PLAYING');
         setTimer(0);
         setIsAnswered(false);
@@ -48,7 +53,23 @@ export const Quiz = () => {
         const currentQ = currentQuestions[currentIndex];
         const isCorrect = selectedOption === currentQ.correctOptionId;
 
-        if (isCorrect) setScore(s => s + 1);
+        if (isCorrect) {
+            setScore(s => s + 1);
+        }
+
+        // Update domain stats
+        setDomainScores(prev => {
+            const domainId = currentQ.domainId;
+            const currentStats = prev[domainId] || { correct: 0, total: 0 };
+            return {
+                ...prev,
+                [domainId]: {
+                    correct: currentStats.correct + (isCorrect ? 1 : 0),
+                    total: currentStats.total + 1
+                }
+            };
+        });
+
         setIsAnswered(true);
     };
 
@@ -81,21 +102,28 @@ export const Quiz = () => {
     };
 
     if (gameState === 'MENU') {
+        const availableQuestionCount = getAllQuestions().length;
+
         return (
             <div className="max-w-2xl mx-auto space-y-8 animate-fade-in text-center">
                 <h1 className="text-4xl font-bold text-white mb-4">Live Fire Exercise</h1>
                 <Card className="p-8 border-t-4 border-t-cyber-green">
                     <h2 className="text-2xl font-bold mb-4 text-white">Select Simulation Protocol</h2>
-                    <p className="text-gray-400 mb-8">Choose your engagement parameters.</p>
+                    <p className="text-gray-400 mb-8">Choose your engagement parameters. <br /> <span className="text-xs text-gray-500">Total Intel Available: {availableQuestionCount} Questions</span></p>
 
                     <div className="flex flex-col gap-4 sm:flex-row justify-center">
                         <Button variant="primary" size="lg" onClick={() => startQuiz('QUICK')}>
                             Quick Skirmish (10 Qs)
                         </Button>
-                        <Button variant="outline" size="lg" onClick={() => startQuiz('FULL')}>
+                        <Button variant="outline" size="lg" onClick={() => startQuiz('FULL')} disabled={availableQuestionCount < 10}>
                             Full Simulation (90 Qs)
                         </Button>
                     </div>
+                    {availableQuestionCount < 90 && (
+                        <p className="mt-4 text-xs text-yellow-500/80">
+                            * Note: Full Simulation will use all {availableQuestionCount} available questions until database is fully populated.
+                        </p>
+                    )}
                 </Card>
             </div>
         );
@@ -103,32 +131,69 @@ export const Quiz = () => {
 
     if (gameState === 'RESULTS') {
         const percentage = Math.round((score / currentQuestions.length) * 100);
+
         return (
-            <div className="max-w-2xl mx-auto space-y-8 animate-fade-in text-center">
-                <h1 className="text-4xl font-bold text-white mb-4">Mission Debrief</h1>
-                <Card className="p-8 border-t-4 border-t-cyber-blue">
-                    <div className="text-6xl font-bold text-white mb-2">{percentage}%</div>
-                    <div className="text-gray-400 mb-6">Accuracy Rating</div>
+            <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+                <div className="text-center">
+                    <h1 className="text-4xl font-bold text-white mb-4">Mission Debrief</h1>
+                </div>
 
-                    <div className="flex justify-center gap-8 mb-8 text-sm">
-                        <div>
-                            <div className="text-gray-500">Correct</div>
-                            <div className="text-2xl font-bold text-cyber-green">{score}</div>
-                        </div>
-                        <div>
-                            <div className="text-gray-500">Total</div>
-                            <div className="text-2xl font-bold text-white">{currentQuestions.length}</div>
-                        </div>
-                        <div>
-                            <div className="text-gray-500">Time</div>
-                            <div className="text-2xl font-bold text-white">{formatTime(timer)}</div>
-                        </div>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Main Score Card */}
+                    <Card className="p-8 border-t-4 border-t-cyber-blue md:col-span-1 text-center flex flex-col justify-center">
+                        <div className="text-6xl font-bold text-white mb-2">{percentage}%</div>
+                        <div className="text-gray-400 mb-6">Accuracy Rating</div>
 
-                    <Button variant="primary" onClick={() => setGameState('MENU')} icon={<RotateCcw />}>
+                        <div className="flex flex-col gap-4 text-sm">
+                            <div className="flex justify-between border-b border-gray-700/50 pb-2">
+                                <span className="text-gray-500">Correct</span>
+                                <span className="font-bold text-cyber-green">{score}</span>
+                            </div>
+                            <div className="flex justify-between border-b border-gray-700/50 pb-2">
+                                <span className="text-gray-500">Total</span>
+                                <span className="font-bold text-white">{currentQuestions.length}</span>
+                            </div>
+                            <div className="flex justify-between border-b border-gray-700/50 pb-2">
+                                <span className="text-gray-500">Time</span>
+                                <span className="font-bold text-white">{formatTime(timer)}</span>
+                            </div>
+                        </div>
+                    </Card>
+
+                    {/* Domain Breakdown */}
+                    <Card className="p-8 md:col-span-2">
+                        <div className="flex items-center gap-2 mb-6">
+                            <BarChart3 className="text-cyber-green" />
+                            <h3 className="text-xl font-bold text-white">Domain Performance</h3>
+                        </div>
+
+                        <div className="space-y-4">
+                            {Object.entries(domainScores).map(([domainId, stats]) => {
+                                const domainPercent = Math.round((stats.correct / stats.total) * 100);
+                                return (
+                                    <div key={domainId} className="space-y-1">
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-gray-300">Domain {domainId}</span>
+                                            <span className={clsx("font-bold", domainPercent >= 80 ? "text-cyber-green" : domainPercent >= 70 ? "text-yellow-400" : "text-red-400")}>
+                                                {domainPercent}% ({stats.correct}/{stats.total})
+                                            </span>
+                                        </div>
+                                        <ProgressBar value={domainPercent} color={domainPercent >= 80 ? "green" : domainPercent >= 70 ? "yellow" : "red"} className="h-2" />
+                                    </div>
+                                );
+                            })}
+                            {Object.keys(domainScores).length === 0 && (
+                                <p className="text-gray-500 text-sm">No domain data available.</p>
+                            )}
+                        </div>
+                    </Card>
+                </div>
+
+                <div className="flex justify-center">
+                    <Button variant="primary" size="lg" onClick={() => setGameState('MENU')} icon={<RotateCcw />}>
                         Return to Base
                     </Button>
-                </Card>
+                </div>
             </div>
         );
     }
@@ -201,7 +266,7 @@ export const Quiz = () => {
                         </p>
                         <div className="flex justify-end">
                             <Button onClick={nextQuestion} icon={<ArrowRight />}>
-                                Next Objective
+                                {currentIndex < currentQuestions.length - 1 ? "Next Objective" : "Finish Debrief"}
                             </Button>
                         </div>
                     </div>

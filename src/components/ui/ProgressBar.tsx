@@ -6,7 +6,7 @@ interface ProgressBarProps {
     label?: string;
     showValue?: boolean;
     className?: string;
-    color?: 'green' | 'blue' | 'red';
+    color?: 'green' | 'blue' | 'red' | 'yellow';
 }
 
 export const ProgressBar = ({
@@ -23,6 +23,7 @@ export const ProgressBar = ({
         green: 'bg-cyber-green',
         blue: 'bg-cyber-blue',
         red: 'bg-red-500',
+        yellow: 'bg-yellow-500',
     };
 
     return (
