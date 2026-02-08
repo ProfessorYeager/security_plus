@@ -601,6 +601,192 @@ Data exists in three states, and each needs different protection methods.
         ]
     },
     {
+        id: "2.0",
+        title: "Threats, Vulnerabilities, and Mitigations",
+        weight: 22,
+        objectives: [
+            {
+                id: "2.1",
+                domainId: "2.0",
+                title: "Threat Actors",
+                concepts: [
+                    {
+                        id: "apt",
+                        title: "Advanced Persistent Threat (APT)",
+                        summary: "Highly skilled, well-funded attackers (usually Nation-States).",
+                        details: `### Concept Breakdown
+An **APT** is the highest tier of threat actor. They have:
+*   **Advanced** tools (Zero-day exploits).
+*   **Persistent** presence (They stay in your network for months/years).
+*   **Threat** (Specific goals: Espionage, Sabotage).
+
+### Real-World Application
+*   **Stuxnet**: Malware created by US/Israel to sabotage Iranian nuclear centrifuges.
+*   **SolarWinds Hack**: Russian spies compromised a software update to infiltrate US government agencies.
+
+### Non-Technical Analogy
+**The Professional Heist Crew (Ocean's 11)**:
+*   They plan for months.
+*   They have unlimited budget and specialized gear.
+*   They don't just smash a window; they bypass the alarm, loop the cameras, and walk out quietly.
+
+### 🛡️ Exam Tip
+If the exam mentions **"Nation-State"**, **"Government"**, or **"Well-Funded"**, the answer is **APT**.`,
+                        video: {
+                            title: "Threat Actors Explained: APTs vs Script Kiddies",
+                            url: "https://www.loom.com/share/apt-vs-skiddie-placeholder"
+                        },
+                        quizQuestions: [
+                            {
+                                id: "apt-q1",
+                                domainId: "2.0",
+                                objectiveId: "2.1",
+                                text: "Which type of threat actor is characterized by having significant resources and the intent to conduct espionage?",
+                                options: [
+                                    { id: "a", text: "Script Kiddie" },
+                                    { id: "b", text: "Insider Threat" },
+                                    { id: "c", text: "APT (Advanced Persistent Threat)" },
+                                    { id: "d", text: "Hacktivist" }
+                                ],
+                                correctOptionId: "c",
+                                explanation: "APTs are typically nation-state actors with the resources to conduct long-term espionage campaigns."
+                            }
+                        ]
+                    },
+                    {
+                        id: "script-kiddie",
+                        title: "Script Kiddie",
+                        summary: "Unskilled attackers who use tools created by others.",
+                        details: `### Concept Breakdown
+A **Script Kiddie** has little to no coding knowledge. They download attack tools (scripts) from the dark web and point them at targets just to see what happens.
+*   **Motivation**: Clout, bragging rights, boredom.
+*   **Danger**: Still dangerous! A kid with a loaded gun is still a threat, even if they don't know how the gun works.
+
+### Real-World Application
+A teenager downloading "Low Orbit Ion Cannon" (LOIC) to DDoS their school's website because they don't want to take a test.
+
+### Non-Technical Analogy
+**Graffiti Artist**:
+*   They buy a spray can (tool) from a store.
+*   They tag a wall to show off to their friends.
+*   They didn't invent the paint or the wall, they just use it to make a mess.
+
+### 🛡️ Exam Tip
+**"Low technical knowledge"** or **"Uses existing tools"** = **Script Kiddie**.`,
+                        video: null
+                    },
+                    {
+                        id: "insider-threat",
+                        title: "Insider Threat",
+                        summary: "Current or former employees with authorized access.",
+                        details: `### Concept Breakdown
+The most dangerous threat often comes from *inside* the house.
+*   **Malicious Insider**: Disgruntled employee stealing data before quitting.
+*   **Negligent Insider**: Employee who accidentally clicks a phishing link (Most Common).
+
+### Real-World Application
+A salesperson downloading the entire client database to a USB drive before leaving to work for a competitor.
+
+### Non-Technical Analogy
+**The Butler**:
+*   You have locks on all the doors to keep thieves out.
+*   But the **Butler** has the keys. If the Butler decides to steal the silverware, your locks are useless.
+
+### 🛡️ Exam Tip
+**Background Checks** and **Least Privilege** are the best defenses against Insider Threats.`,
+                        video: null
+                    }
+                ]
+            },
+            {
+                id: "2.2",
+                domainId: "2.0",
+                title: "Social Engineering",
+                concepts: [
+                    {
+                        id: "phishing",
+                        title: "Phishing & Variations",
+                        summary: "Deceptive attempts to get sensitive information (Passwords, Credit Cards).",
+                        details: `### Concept Breakdown
+Attacking the **Human**, not the computer.
+*   **Phishing**: Generic email spray (".", "Dear Customer").
+*   **Spear Phishing**: Targeted at a specific person ("Hi Gabriel, see attached invoice").
+*   **Whaling**: Targeting a "Big Fish" (CEO/CFO).
+*   **Vishing**: Voice Phishing (Phone calls).
+*   **Smishing**: SMS Phishing (Text messages).
+
+### Real-World Application
+You get an email saying "Your Netflix account is suspended. Click here to update payment." The link goes to \`netf1ix-support.com\`.
+
+### Non-Technical Analogy
+**Fishing with a Net vs. a Spear**:
+*   **Phishing**: Casting a wide net. You catch a lot of tuna, but also some old boots.
+*   **Spear Phishing**: Hunting one specific fish. You study its habits and strike precisely.
+
+### 🛡️ Exam Tip
+*   **Voice** = **Vishing**.
+*   **SMS/Text** = **Smishing**.
+*   **CEO/Executive** = **Whaling**.`,
+                        video: {
+                            title: "Social Engineering Types Explained (Phishing vs Spear Phishing vs Whaling)",
+                            url: "https://www.loom.com/share/social-engineering-placeholder"
+                        }
+                    }
+                ]
+            },
+            {
+                id: "2.3",
+                domainId: "2.0",
+                title: "Types of Malware",
+                concepts: [
+                    {
+                        id: "ransomware",
+                        title: "Ransomware",
+                        summary: "Encrypts files and demands payment for the decryption key.",
+                        details: `### Concept Breakdown
+Malware that denies access to your own data until you pay a fee (usually crypto).
+*   **Encryption**: It uses strong encryption (AES/RSA) against you.
+*   **Extortion**: "Pay us 5 BTC or you lose your photos forever."
+
+### Real-World Application
+**WannaCry (2017)**: Infected thousands of hospital computers in the UK, forcing them to turn away patients.
+
+### Non-Technical Analogy
+**Digital Kidnapping**:
+*   The kidnapper locks your child (Data) in a room.
+*   They send you a note: "Pay up or you never see them again."
+*   (Note: Even if you pay, you might not get them back!)
+
+### 🛡️ Exam Tip
+The best defense against Ransomware is **Offline Backups**. If you have a backup, you don't need to pay the ransom.`,
+                        video: null
+                    },
+                    {
+                        id: "trojan",
+                        title: "Trojan",
+                        summary: "Malware disguised as legitimate software.",
+                        details: `### Concept Breakdown
+A program that looks helpful but contains a malicious payload.
+*   It does **not** self-replicate (unlike a Virus or Worm).
+*   It relies on the **user** to install it.
+
+### Real-World Application
+You download a "Free Minecraft Crack" tool. It runs the game, but in the background, it installs a Keylogger that steals your passwords.
+
+### Non-Technical Analogy
+**The Trojan Horse (Greek Myth)**:
+*   The Greeks hid inside a giant wooden horse.
+*   The Trojans thought it was a gift and dragged it inside their city walls.
+*   Once inside, the Greeks jumped out and attacked.
+
+### 🛡️ Exam Tip
+**Trojans** rely on **Social Engineering** (tricking the user) to get installed.`,
+                        video: null
+                    }
+                ]
+            }
+        ]
+    {
         id: "3.0",
         title: "Security Architecture",
         weight: 18,
@@ -888,7 +1074,24 @@ Who owns the cloud hardware and who can access it?
                         id: "linux-users",
                         title: "Linux User Management",
                         summary: "Understanding root, sudo, and user permissions.",
-                        details: "Linux security revolves around accounting and permissions.\n\n• **Root User**: The superuser with unlimited power (UID 0). Always limit its use.\n• **Sudo**: Allows a regular user to execute commands as the superuser (Logged/Audited).\n• **Standard Users**: Have a home directory and limited access to system files.",
+                        details: `### Concept Breakdown
+Linux security revolves around accounting (who you are) and permissions (what you can do).
+
+*   **Root User (UID 0)**: The superuser with unlimited power. Can read any file, stop any service, and destroy the system.
+*   **Standard Users (UID 1000+)**: Have specific permissions. Can only write to their own home directory (e.g., \`/home/alice\`).
+*   **Service Accounts**: Used by applications (like a web server) to run in the background. They usually cannot log in interactively.
+
+### Real-World Application
+You never log in as **root** for daily tasks. You log in as a standard user (e.g., "gabriel") and use \`sudo\` (SuperUser DO) to execute specific administrative commands when needed. This creates an audit trail ('/var/log/auth.log' shows who did what).
+
+### Non-Technical Analogy
+**The Hotel Master Key**:
+*   **Root**: The **General Manager** with a Master Key that opens every single room and safe in the hotel.
+*   **Standard User**: A **Guest**. Your key only opens your specific room (\`/home/guest\`).
+*   **Sudo**: Calling the front desk to ask them to open the gym for you. They verify who you are, then do it for you.
+
+### 🛡️ Exam Tip
+**UID 0** is always **Root**. If you see a generic account with UID 0, it's a backdoor.`,
                         video: {
                             title: "Linux Users Explained for Security+ (Why Root Is Dangerous)",
                             url: "https://www.loom.com/share/ad29091311ad466ba6628209ffd5a858"
@@ -914,21 +1117,195 @@ Who owns the cloud hardware and who can access it?
                         id: "linux-groups",
                         title: "Linux Groups & RBAC",
                         summary: "Using groups to implement Role-Based Access Control.",
-                        details: "Groups simplify administration by allowing permissions to be assigned to multiple users at once.\n\n• **/etc/group**: The file where group definitions are stored.\n• **Primary Group**: The user's main group.\n• **Secondary Groups**: Additional groups for access to specific files or devices.",
+                        details: `### Concept Breakdown
+Managing permissions for every single user individually is a nightmare. **Groups** allow you to assign permissions to a collection of users at once (Role-Based Access Control - RBAC).
+
+*   **/etc/group**: The file where group definitions are stored.
+*   **Primary Group**: Assigned when the user is created (usually same as username).
+*   **Secondary Groups**: Added permissions (e.g., adding a user to the \`docker\` group to manage containers).
+
+### Real-World Application
+In a company, you create a group called \`HR_Managers\`. You give that group read/write access to the \`/srv/personnel_files\` directory. When you hire a new HR manager, you just add them to the \`HR_Managers\` group. You don't touch the file permissions.
+
+### Non-Technical Analogy
+**VIP Wristbands**:
+*   The club bouncer (Operating System) doesn't know every person's name.
+*   They just look for the **VIP Wristband** (Group).
+*   If you have the wristband, you get into the VIP lounge (Access to Directory). It doesn't matter who you are, just what group you are in.
+
+### 🛡️ Exam Tip
+**RBAC** (Role-Based Access Control) is almost always implemented using **Groups**.`,
                         video: {
                             title: "Linux Groups = RBAC (Security+ Connection People Miss)",
                             url: "https://www.loom.com/share/d5e3719be22445f7ae34eb85d44fc67b"
-                        }
+                        },
+                        quizQuestions: [
+                            {
+                                id: "grp-q1",
+                                domainId: "4.0",
+                                objectiveId: "4.1",
+                                text: "A system administrator wants to give the Sales team access to a shared directory without modifying permissions for each user. What should they use?",
+                                options: [
+                                    { id: "a", text: "DAC" },
+                                    { id: "b", text: "MAC" },
+                                    { id: "c", text: "Groups" },
+                                    { id: "d", text: "Sudo" }
+                                ],
+                                correctOptionId: "c",
+                                explanation: "Groups allow for efficient permission management by assigning rights to a role rather than individuals."
+                            }
+                        ]
                     },
                     {
                         id: "active-directory",
                         title: "Active Directory (AD)",
                         summary: "Microsoft's directory service for Windows domain networks.",
-                        details: "Active Directory is the industry standard for centralized identity management in Windows environments.\n\n• **Domain Controller (DC)**: The server that responds to security authentication requests.\n• **Group Policy (GPO)**: Used to push security settings (like screen lock timers) to thousands of computers simultaneously.\n• **LDAP**: The protocol used to query and modify directory services.",
+                        details: `### Concept Breakdown
+**Active Directory (AD)** is the heart of most corporate networks. It is a database that stores everything: Users, Computers, Printers, and Policies.
+
+*   **Domain Controller (DC)**: The server that holds the database and authenticates users (Kerberos).
+*   **Group Policy Objects (GPO)**: Rules pushed to all computers (e.g., "Disable USB drives", "Force Wallpapers").
+*   **Organizational Units (OU)**: Folders to organize objects (e.g., "Sales", "Engineering").
+
+### Real-World Application
+When you change your password on your work laptop, you are talking to the **Domain Controller**. That new password now works for your email, your VPN, and the Wi-Fi. This is **Centralized Authentication**.
+
+### Non-Technical Analogy
+**The Phone Book + Rule Book**:
+*   **AD is a Phone Book**: It lists everyone's number (User Accounts).
+*   **AD is a Rule Book**: It tells everyone what they are allowed to do (Group Policy).
+*   **Domain Controller**: The Librarian who guards the books.
+
+### 🛡️ Exam Tip
+*   **GPO** = **Configuration Management** (Enforcing settings on many computers).
+*   **Kerberos** = The default authentication protocol for Active Directory.`,
                         video: {
                             title: "Active Directory — What It Actually Does",
                             url: "https://www.loom.com/share/fc24f82855e24a2f9e48c3a7334eaf68"
-                        }
+                        },
+                        quizQuestions: [
+                            {
+                                id: "ad-q1",
+                                domainId: "4.0",
+                                objectiveId: "4.1",
+                                text: "Which component of Active Directory is used to enforce security settings, such as password complexity, across multiple computers?",
+                                options: [
+                                    { id: "a", text: "LDAP" },
+                                    { id: "b", text: "Kerberos" },
+                                    { id: "c", text: "Group Policy" },
+                                    { id: "d", text: "Domain Controller" }
+                                ],
+                                correctOptionId: "c",
+                                explanation: "Group Policy Objects (GPO) are used to deploy and enforce configuration settings to users and computers in the domain."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: "5.0",
+        title: "Governance, Risk, and Compliance",
+        weight: 14,
+        objectives: [
+            {
+                id: "5.1",
+                domainId: "5.0",
+                title: "Risk Management",
+                concepts: [
+                    {
+                        id: "risk-types",
+                        title: "Qualitative vs. Quantitative Risk",
+                        summary: "Measuring risk with intuition vs. numbers.",
+                        details: `### Concept Breakdown
+How do you measure how "bad" a risk is?
+
+*   **Qualitative Risk Analysis**: Subjective. Uses **colors** (Red/Yellow/Green) or **words** (High/Medium/Low).
+    *   *Best for*: Quick triage, prioritizing what to focus on first.
+*   **Quantitative Risk Analysis**: Objective. Uses **numbers** and **dollars**.
+    *   *Formula*: **SLE** (Single Loss Expectancy) x **ARO** (Annual Rate of Occurrence) = **ALE** (Annual Loss Expectancy).
+    *   *Best for*: Justifying budgets (e.g., "This tool costs $5k but saves $50k/year").
+
+### Real-World Application
+*   **Qualitative**: "The server crashing would be **Catastrophic** for our reputation."
+*   **Quantitative**: "If the server crashes, we lose **$10,000 per hour** in sales."
+
+### Non-Technical Analogy
+**Weather Forecast**:
+*   **Qualitative**: "It's going to clear up later." (Vague, feeling-based).
+*   **Quantitative**: "There is a **20% chance** of rain and the temperature is **65°F**." (Math-based).
+
+### 🛡️ Exam Tip
+*   **Quantitative** = **$$$** (Dollars/Numbers).
+*   **Qualitative** = **Quality/Feeling** (High/Low).`,
+                        video: {
+                            title: "Qualitative vs Quantitative Risk Analysis (The MATH of Security)",
+                            url: "https://www.loom.com/share/risk-analysis-placeholder"
+                        },
+                        quizQuestions: [
+                            {
+                                id: "risk-q1",
+                                domainId: "5.0",
+                                objectiveId: "5.1",
+                                text: "A Chief Information Security Officer (CISO) is presenting a budget request and states that a specific security control will save the company $50,000 annually. What type of risk analysis was performed?",
+                                options: [
+                                    { id: "a", text: "Qualitative" },
+                                    { id: "b", text: "Quantitative" },
+                                    { id: "c", text: "Hybrid" },
+                                    { id: "d", text: "Compliance-based" }
+                                ],
+                                correctOptionId: "b",
+                                explanation: "Quantitative analysis uses specific financial metrics and data to assess risk and value."
+                            }
+                        ]
+                    },
+                    {
+                        id: "risk-response",
+                        title: "Risk Response Strategies",
+                        summary: "Avoid, Transfer, Mitigate, Accept.",
+                        details: `### Concept Breakdown
+Once you find a risk, you have 4 main choices (ATMA):
+
+1.  **Avoid**: Stop doing the risky activity entirely.
+2.  **Transfer**: Make someone else pay for it (Insurance).
+3.  **Mitigate**: Reduce the likelihood or impact (Install Antivirus, Firewalls).
+4.  **Accept**: Do nothing. The cost of fixing it is higher than the loss.
+
+### Real-World Application
+*   **Transfer**: Buying Cyber Insurance. If you get hacked, they pay the fine.
+*   **Mitigate**: Patching your servers to close vulnerabilities.
+*   **Accept**: Deciding not to upgrade an old printer because a new one is too expensive and the old one rarely fails.
+
+### Non-Technical Analogy
+**Skydiving**:
+*   **Avoid**: You don't go skydiving.
+*   **Transfer**: You sign a waiver (or buy life insurance).
+*   **Mitigate**: You pack a **backup parachute**.
+*   **Accept**: You jump and know there is a small chance risk of injury, but the fun is worth it.
+
+### 🛡️ Exam Tip
+**Insurance** or **Outsourcing** is almost always **Risk Transfer**.`,
+                        video: {
+                            title: "Risk Response Strategies Explained (Avoid, Transfer, Mitigate, Accept)",
+                            url: "https://www.loom.com/share/risk-response-placeholder"
+                        },
+                        quizQuestions: [
+                            {
+                                id: "resp-q1",
+                                domainId: "5.0",
+                                objectiveId: "5.1",
+                                text: "A company decides to purchase cyber liability insurance to cover potential losses from a data breach. Which risk response strategy is this?",
+                                options: [
+                                    { id: "a", text: "Avoidance" },
+                                    { id: "b", text: "Mitigation" },
+                                    { id: "c", text: "Acceptance" },
+                                    { id: "d", text: "Transfer" }
+                                ],
+                                correctOptionId: "d",
+                                explanation: "Risk Transfer involves shifting the financial burden of a risk to a third party, such as an insurance provider."
+                            }
+                        ]
                     }
                 ]
             }
