@@ -6,6 +6,7 @@ import { Quiz } from './pages/Quiz';
 import { Analytics } from './pages/Analytics';
 import { Flashcards } from './pages/Flashcards';
 import { Arcade } from './pages/Arcade';
+import { LiveFire } from './pages/LiveFire';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="stats" element={<Analytics />} />
         <Route path="flashcards" element={<Flashcards />} />
         <Route path="arcade" element={<Arcade />} />
+        <Route path="live-fire" element={<LiveFire />} />
       </Route>
     </Routes>
   );
