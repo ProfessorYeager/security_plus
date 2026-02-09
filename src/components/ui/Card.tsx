@@ -7,11 +7,13 @@ interface CardProps {
     contentClassName?: string;
     title?: ReactNode;
     action?: ReactNode;
+    onClick?: () => void;
 }
 
-export const Card = ({ children, className, contentClassName, title, action }: CardProps) => {
+export const Card = ({ children, className, contentClassName, title, action, onClick }: CardProps) => {
     return (
         <div
+            onClick={onClick}
             className={clsx(
                 'bg-gray-900/50 backdrop-blur-sm border border-white/5 rounded-xl shadow-xl overflow-hidden',
                 className

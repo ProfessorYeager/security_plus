@@ -3,9 +3,12 @@ import { MatchingQuestion } from '../components/pbq/MatchingQuestion';
 import { Question } from '../types';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
-import { Play, RotateCcw, Trophy, Clock, AlertTriangle } from 'lucide-react';
+import { Play, RotateCcw, Trophy, Clock, AlertTriangle, Terminal } from 'lucide-react';
 import { useStore } from '../store/useStore';
+import { TerminalChallenge } from '../components/arcade/TerminalChallenge';
 import { clsx } from 'clsx';
+
+type GameMode = 'MENU' | 'PORT_BLITZ' | 'CLI_CHALLENGE';
 
 // Common Port Data for Security+
 const PORT_DATA = [
@@ -28,7 +31,10 @@ const PORT_DATA = [
 const GAME_DURATION = 60; // 60 Seconds
 
 export const Arcade = () => {
-    const [gameState, setGameState] = useState<'MENU' | 'PLAYING' | 'GAME_OVER'>('MENU');
+    const [gameMode, setGameMode] = useState<GameMode>('MENU');
+
+    // Port Blitz State
+    const [pbState, setPbState] = useState<'MENU' | 'PLAYING' | 'GAME_OVER'>('MENU');
     const [score, setScore] = useState(0);
     const [timeLeft, setTimeLeft] = useState(GAME_DURATION);
     const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
@@ -78,7 +84,7 @@ export const Arcade = () => {
     const startGame = () => {
         setScore(0);
         setTimeLeft(GAME_DURATION);
-        setGameState('PLAYING');
+        setPbState('PLAYING');
         generateQuestion();
 
         if (timerRef.current) clearInterval(timerRef.current);
@@ -95,7 +101,7 @@ export const Arcade = () => {
 
     const endGame = () => {
         if (timerRef.current) clearInterval(timerRef.current);
-        setGameState('GAME_OVER');
+        setPbState('GAME_OVER');
         addXP(score); // 1 XP per point
     };
 
@@ -147,12 +153,52 @@ export const Arcade = () => {
         };
     }, []);
 
+    if (gameMode === 'CLI_CHALLENGE') {
+        return <TerminalChallenge onBack={() => setGameMode('MENU')} />;
+    }
+
     return (
         <div className="flex flex-col items-center justify-center p-6 min-h-[calc(100vh-8rem)]">
 
-            {gameState === 'MENU' && (
-                <Card className="max-w-md w-full text-center p-8 space-y-6 bg-gray-900/90 border-cyber-green/30">
-                    <h1 className="text-4xl font-bold text-white tracking-tighter">
+            {gameMode === 'MENU' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+                    <Card className="flex flex-col items-center text-center p-8 space-y-6 hover:scale-105 transition-transform cursor-pointer border-t-4 border-t-cyber-blue"
+                        onClick={() => { setGameMode('PORT_BLITZ'); setPbState('MENU'); }}>
+                        <div className="p-4 bg-cyber-blue/20 rounded-full mb-2">
+                            <Clock size={48} className="text-cyber-blue" />
+                        </div>
+                        <h2 className="text-3xl font-bold text-white">PORT BLITZ</h2>
+                        <p className="text-gray-400">
+                            Fast-paced port matching. Race against the clock to match protocols to port numbers.
+                        </p>
+                        <Button className="w-full">Play Now</Button>
+                    </Card>
+
+                    <Card className="flex flex-col items-center text-center p-8 space-y-6 hover:scale-105 transition-transform cursor-pointer border-t-4 border-t-cyber-green"
+                        onClick={() => setGameMode('CLI_CHALLENGE')}>
+                        <div className="p-4 bg-cyber-green/20 rounded-full mb-2">
+                            <Terminal size={48} className="text-cyber-green" />
+                        </div>
+                        <h2 className="text-3xl font-bold text-white">TERMINAL OPS</h2>
+                        <p className="text-gray-400">
+                            Test your command line skills. Solve security scenarios using real CLI commands.
+                        </p>
+                        <Button className="w-full">Initialize</Button>
+                    </Card>
+                </div>
+            )}
+
+            {gameMode === 'PORT_BLITZ' && pbState === 'MENU' && (
+                <Card className="max-w-md w-full text-center p-8 space-y-6 bg-gray-900/90 border-cyber-green/30 relative">
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="absolute top-4 left-4"
+                        onClick={() => setGameMode('MENU')}
+                    >
+                        &larr; Back
+                    </Button>
+                    <h1 className="text-4xl font-bold text-white tracking-tighter pt-4">
                         PORT <span className="text-cyber-green">BLITZ</span>
                     </h1>
                     <p className="text-gray-400">
@@ -178,7 +224,7 @@ export const Arcade = () => {
                 </Card>
             )}
 
-            {gameState === 'PLAYING' && currentQuestion && (
+            {gameMode === 'PORT_BLITZ' && pbState === 'PLAYING' && currentQuestion && (
                 <div className="w-full max-w-4xl space-y-6">
                     {/* Header */}
                     <div className="flex justify-between items-center bg-gray-900/80 p-4 rounded-xl border border-white/10 backdrop-blur-md">
@@ -222,7 +268,7 @@ export const Arcade = () => {
                 </div>
             )}
 
-            {gameState === 'GAME_OVER' && (
+            {gameMode === 'PORT_BLITZ' && pbState === 'GAME_OVER' && (
                 <Card className="max-w-md w-full text-center p-8 space-y-6 animate-in zoom-in duration-300">
                     <Trophy className="w-16 h-16 mx-auto text-yellow-400 mb-4" />
                     <h2 className="text-3xl font-bold text-white">TIME'S UP!</h2>
@@ -238,7 +284,7 @@ export const Arcade = () => {
                     </div>
 
                     <div className="flex gap-4">
-                        <Button onClick={() => setGameState('MENU')} variant="outline" className="flex-1">
+                        <Button onClick={() => setPbState('MENU')} variant="outline" className="flex-1">
                             Main Menu
                         </Button>
                         <Button onClick={startGame} variant="primary" className="flex-1">

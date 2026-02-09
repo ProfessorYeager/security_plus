@@ -4,15 +4,15 @@ import { Card } from '../components/ui/Card';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { Button } from '../components/ui/Button';
 import { domains } from '../data';
+import { getLevelProgress } from '../utils/gamification';
 import { Shield, Zap, ArrowRight, PlayCircle } from 'lucide-react';
 
 export const Dashboard = () => {
     const { xp, streak, completedConcepts } = useStore();
     const navigate = useNavigate();
 
-    // Calculate simple level based on XP
-    const level = Math.floor(xp / 100) + 1;
-    const xpProgress = xp % 100;
+    // Calculate level based on XP
+    const levelStats = getLevelProgress(xp);
 
     // Smart Suggestion: Find first uncompleted concept
     const findNextMission = () => {
@@ -44,8 +44,8 @@ export const Dashboard = () => {
                 <Card className="border-l-4 border-l-cyber-green flex items-center justify-between p-6">
                     <div>
                         <div className="text-xs font-mono text-gray-500 mb-1">SECURITY CLEARANCE</div>
-                        <div className="text-3xl font-bold text-white mb-1">LEVEL {level}</div>
-                        <div className="text-sm text-gray-400">{xp} / {(level * 100)} XP to next rank</div>
+                        <div className="text-3xl font-bold text-white mb-1">LEVEL {levelStats.currentLevel}</div>
+                        <div className="text-sm text-gray-400">{Math.round(levelStats.xpIntoLevel)} / {Math.round(levelStats.xpNeededForLevel)} XP to next rank</div>
                     </div>
                     <div className="p-3 bg-cyber-green/10 rounded-full">
                         <Shield className="text-cyber-green" size={32} />
