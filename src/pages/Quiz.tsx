@@ -206,7 +206,7 @@ export const Quiz = () => {
         return (
             <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-white mb-2">Live Fire Exercises</h1>
+                    <h1 className="text-4xl font-bold text-white mb-2">Exam Simulations</h1>
                     <p className="text-gray-400">Engage in simulation drills and full exam practice.</p>
                 </div>
 

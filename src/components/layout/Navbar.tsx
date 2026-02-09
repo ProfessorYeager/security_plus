@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, BookOpen, Target, BarChart2, Menu, X, Terminal } from 'lucide-react';
+import { Shield, BookOpen, Target, BarChart2, Menu, X, Terminal, FileCheck } from 'lucide-react';
 import { useState } from 'react';
 import clsx from 'clsx';
 
@@ -10,6 +10,7 @@ export const Navbar = () => {
     const navItems = [
         { name: 'Mission Control', path: '/', icon: Shield },
         { name: 'Briefing Room', path: '/study', icon: BookOpen },
+        { name: 'Exams', path: '/quiz', icon: FileCheck },
         { name: 'Live Fire', path: '/live-fire', icon: Target },
         { name: 'Arcade', path: '/arcade', icon: Terminal },
         { name: 'Analytics', path: '/stats', icon: BarChart2 },
