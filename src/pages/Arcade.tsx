@@ -250,5 +250,4 @@ export const Arcade = () => {
             )}
         </div>
     );
-    );
 };
